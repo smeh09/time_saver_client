@@ -1,24 +1,20 @@
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route
 } from "react-router-dom";
+import Header from './components/Header';
+import Authenticate from './components/Authenticate';
 
 function App() {
   return (
     <div>
       <Router>
-        <Switch>
-          <Route exact path='/'>
-
-          </Route>
-          <Route exact path='/log_in'>
-            
-          </Route>
-          <Route exact path='/sign_up'>
-
-          </Route>
-        </Switch>
+        <Header title='Time Table Manager' />
+        <Routes>
+          <Route path='/' element={<></>} />
+          <Route path='/authenticate' element={<Authenticate />} />
+        </Routes>
       </Router>
     </div>
   );
