@@ -11,13 +11,13 @@ export default function Header({ title }) {
       <nav>
         <ul id='nav-list'>
           <li className='nav-list-item'>
-            <Link className='nav-link' to='/'>Home</Link>
-          </li>
-          <li className='nav-list-item'>
             <Link className='nav-link' to='/about'>About</Link>
           </li>
           <li className='nav-list-item'>
-            <Link className='nav-link' to='/authenticate?type=sign_in'>Sign up/in</Link>
+            <Link className='nav-link' to='/authenticate?type=sign_up'>Sign up</Link>
+          </li>
+          <li className='nav-list-item'>
+            <Link className='nav-link' to='/authenticate?type=sign_in'>Sign in</Link>
           </li>
         </ul>
       </nav>
