@@ -60,7 +60,7 @@ export default function Authenticate() {
               <>
                 <div className='authenticate-form-control'>
                   <div className='authenticate-form-control-input-label'>Full Name</div>
-                  <input type='text' className='authenticate-form-control-input' placeholder='Please enter your Email' value={signUpName} onChange={(e) => setSignUpName(e.target.value)} />
+                  <input type='text' className='authenticate-form-control-input' placeholder='Please enter your Name' value={signUpName} onChange={(e) => setSignUpName(e.target.value)} />
                 </div>
 
                 <div className='authenticate-form-control'>

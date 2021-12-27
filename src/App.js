@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import Header from './components/Header';
 import Authenticate from './components/Authenticate';
+import Table from "./components/Table";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path='/' element={<></>} />
           <Route path='/authenticate' element={<Authenticate />} />
+          <Route path='/table' element={<Table />} />
         </Routes>
       </Router>
     </div>

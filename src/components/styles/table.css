@@ -1,0 +1,89 @@
+.table-outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.day-row {
+  display: flex;
+}
+
+.table-row {
+  display: flex;
+}
+
+.box {
+  width: 115px;
+  height: 115px;
+  border: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.table-task {
+  justify-content: space-between;
+}
+
+.table-task-name, .day {
+  font-weight: bold;
+  letter-spacing: 1.2px;
+}
+
+.table-task-name {
+  color: #29D3C0;
+}
+
+.day {
+  justify-content: center;
+  color: #29D3C0;
+}
+
+#selected-box {
+  background-color: rgb(250, 250, 100);
+}
+
+#selected-box > .table-task-time, #selected-box >  .table-task-name, #selected-box > .table-task-teacher {
+  color: black;
+}
+
+#selected-box > .table-task-name {
+  color: black;
+  letter-spacing: normal;
+}
+
+.table-task-teacher, .table-task-time {
+  font-size: 13px;
+}
+
+.time {
+  display: none;
+}
+
+.update-btn {
+  outline: none;
+  background: transparent;
+  border: none;
+  width: 300px;
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 16rem;
+  color: white;
+  background: #1D1B32;
+  transform: translate(0, 25px);
+  border: 2.5px solid #29D3C0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.update-btn:hover {
+  transform: translate(0, 20px);
+}
