@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Task from './Task';
+import Day from './Day';
 import './styles/table.css';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -46,15 +48,11 @@ export default function Table() {
         {table_sample_data.map((row, i) => {
           return (
             <div className='day-row' key={i}>
-              <div className='day box'>{days[i].toUpperCase()}</div>
+              <Day days={days} i={i} />
               <div className='table-row'>
                 {row.map((task, j) => {
                   return (
-                    <div key={j} className='table-task box' id={isTaskNow(days[i], task.timings[0], task.timings[1]) ? 'selected-box' : ''}>
-                      <div className='table-task-time'>{task.timings.map((time, i) => i === task.timings.length - 1 ? `${time}` : `${time} - `)}</div>
-                      <div className='table-task-name'>{task.task}</div>
-                      <div className='table-task-teacher'>{task.teacher}</div>
-                    </div>
+                    <Task days={days} j={j} isTaskNow={isTaskNow} i={i} task={task} />
                   )
                 })}
               </div>
