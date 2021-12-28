@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Task from './Task';
 import Day from './Day';
 import './styles/table.css';
@@ -27,25 +27,27 @@ const isTaskNow = (d, time1, time2) => {
 
 export default function Table() {
 
-  const table_sample_data = [
-    [
-      {'task': 'TEST', 'teacher': 'Mayank Malik', 'timings': ['3:10', '3:30']}, {'task': 'TEST', 'teacher': 'Mayank Malik', 'timings': ['3:31', '3:43']}, {'task': 'MATHS', 'teacher': 'Vaishali Arora', 'timings': ['20:50', '21:25']}, {'task': 'HISTORY', 'teacher': 'Smita Mishra', 'timings': ['21:55', '22:30']}, {'task': 'BIOLOGY', 'teacher': 'Namita Sharma', 'timings': ['22:30', '23:05']}, {'task': 'ENGLISH', 'teacher': 'Malvika Gupta', 'timings': ['23:05', '23:40']}, {'task': 'GEOGRAPHY', 'teacher': 'Gargee Gargee', 'timings': ['23:40', '24:15']}
-    ],
-    [
-      {'task': 'TEST', 'teacher': 'Mayank Malik', 'timings': ['141:40', '20:15']}, {'task': 'TEST', 'teacher': 'Mayank Malik', 'timings': ['20:15', '20:50']}, {'task': 'MATHS', 'teacher': 'Vaishali Arora', 'timings': ['20:50', '21:25']}, {'task': 'HISTORY', 'teacher': 'Smita Mishra', 'timings': ['21:55', '22:30']}, {'task': 'BIOLOGY', 'teacher': 'Namita Sharma', 'timings': ['22:30', '23:05']}, {'task': 'ENGLISH', 'teacher': 'Malvika Gupta', 'timings': ['23:05', '23:40']}, {'task': 'GEOGRAPHY', 'teacher': 'Gargee Gargee', 'timings': ['23:40', '24:15']}
-    ],
-    [
-      {'task': 'TEST', 'teacher': 'Mayank Malik', 'timings': ['141:40', '20:15']}, {'task': 'TEST', 'teacher': 'Mayank Malik', 'timings': ['20:15', '20:50']}, {'task': 'MATHS', 'teacher': 'Vaishali Arora', 'timings': ['20:50', '21:25']}, {'task': 'HISTORY', 'teacher': 'Smita Mishra', 'timings': ['21:55', '22:30']}, {'task': 'BIOLOGY', 'teacher': 'Namita Sharma', 'timings': ['22:30', '23:05']}, {'task': 'ENGLISH', 'teacher': 'Malvika Gupta', 'timings': ['23:05', '23:40']}, {'task': 'GEOGRAPHY', 'teacher': 'Gargee Gargee', 'timings': ['23:40', '24:15']}
-    ],
-    [
-      {'task': 'TEST', 'teacher': 'Mayank Malik', 'timings': ['00:40', '01:15']}, {'task': 'TEST', 'teacher': 'Mayank Malik', 'timings': ['20:15', '20:50']}, {'task': 'MATHS', 'teacher': 'Vaishali Arora', 'timings': ['20:50', '21:25']}, {'task': 'HISTORY', 'teacher': 'Smita Mishra', 'timings': ['21:55', '22:30']}, {'task': 'BIOLOGY', 'teacher': 'Namita Sharma', 'timings': ['22:30', '23:05']}, {'task': 'ENGLISH', 'teacher': 'Malvika Gupta', 'timings': ['23:05', '23:40']}, {'task': 'GEOGRAPHY', 'teacher': 'Gargee Gargee', 'timings': ['23:40', '24:15']}
-    ]
-  ];
+  const [tableSampleData, setTableSampleData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:5000/api/table', {
+        method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          }
+      });
+      const tableSampleData = await response.json();
+      setTableSampleData(tableSampleData);
+    }
+    fetchData();
+  })
 
   return (
     <div className='table-outer'>
       <div className='table'>
-        {table_sample_data.map((row, i) => {
+        {tableSampleData.map((row, i) => {
           return (
             <div className='day-row' key={i}>
               <Day days={days} i={i} />
