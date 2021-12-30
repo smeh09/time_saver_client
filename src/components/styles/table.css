@@ -76,14 +76,30 @@
   padding: 10px 15px;
   font-size: 18px;
   border-radius: 16rem;
-  color: white;
-  background: #1D1B32;
+  color: rgb(37, 37, 37);
+  background: var(--primary-button-gradient);
+  font-weight: bold;
   transform: translate(0, 25px);
-  border: 2.5px solid #29D3C0;
   cursor: pointer;
+  border: 5px solid #262440;
   transition: all 0.2s;
 }
 
 .update-btn:hover {
   transform: translate(0, 20px);
+}
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #29D3C0; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: 100px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

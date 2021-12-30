@@ -27,42 +27,51 @@ const isTaskNow = (d, time1, time2) => {
 
 export default function Table() {
 
-  const [tableSampleData, setTableSampleData] = useState([]);
+  const [tableSampleData, setTableSampleData] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:5000/api/table', {
+      const response = await fetch('http://localhost:5000/api/table/61cd824b6533bf3f3f2b2d83', {
         method: "GET",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json"
-          }
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        }
       });
       const tableSampleData = await response.json();
-      setTableSampleData(tableSampleData);
+      if (tableSampleData.success) {
+        setTableSampleData(tableSampleData.data);
+      }      
     }
     fetchData();
-  })
+  }, [])
 
-  return (
-    <div className='table-outer'>
-      <div className='table'>
-        {tableSampleData.map((row, i) => {
-          return (
-            <div className='day-row' key={i}>
-              <Day days={days} i={i} />
-              <div className='table-row'>
-                {row.map((task, j) => {
-                  return (
-                    <Task days={days} j={j} isTaskNow={isTaskNow} i={i} task={task} />
-                  )
-                })}
+  if (!tableSampleData) {
+    return (
+      <div className='loader'></div>
+    );    
+  } else {
+    console.log(tableSampleData)
+    return (
+      <div className='table-outer'>
+        <div className='table'>
+          {tableSampleData.map((row, i) => {
+            return (
+              <div className='day-row' key={i}>
+                <Day days={days} i={i} />
+                <div className='table-row'>
+                  {row.map((task, j) => {
+                    return (
+                      <Task days={days} j={j} isTaskNow={isTaskNow} i={i} task={task} />
+                    )
+                  })}
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
+        <button className='update-btn' onClick={() => window.location.reload()}>Update</button>
       </div>
-      <button className='update-btn' onClick={() => window.location.reload()}>Update</button>
-    </div>
-  );
+    );
+  }
 }
