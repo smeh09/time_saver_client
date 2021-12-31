@@ -90,8 +90,8 @@
 }
 
 .loader {
-  border: 5px solid #f3f3f3; /* Light grey */
-  border-top: 5px solid #29D3C0; /* Blue */
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #29D3C0;
   border-radius: 50%;
   width: 120px;
   height: 120px;

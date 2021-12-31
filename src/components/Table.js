@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Task from './Task';
-import Day from './Day';
 import './styles/table.css';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -19,7 +17,7 @@ const isTaskNow = (d, time1, time2) => {
   const formattedTime1 = formatTime(time1);
   const formattedTime2 = formatTime(time2);
 
-  if (d !== day) return false;
+  if (d.toLowerCase() !== day.toLocaleLowerCase()) return false;
   if (hour < parseInt(formattedTime1[0]) || mins < parseInt(formattedTime1[1])) return false;
   if (hour > parseInt(formattedTime2[0]) || (hour === parseInt(formattedTime2[0]) && mins > parseInt(formattedTime2[1]))) return false;
   return true;
@@ -31,7 +29,7 @@ export default function Table() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:5000/api/table/61cd824b6533bf3f3f2b2d83', {
+      const response = await fetch('http://localhost:5000/api/table/61cf1f54f69a50fb26a4e216', {
         method: "GET",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -51,26 +49,29 @@ export default function Table() {
       <div className='loader'></div>
     );    
   } else {
-    console.log(tableSampleData)
     return (
       <div className='table-outer'>
         <div className='table'>
-          {tableSampleData.map((row, i) => {
+          {tableSampleData.map((dayData, i) => {
             return (
               <div className='day-row' key={i}>
-                <Day days={days} i={i} />
+                <div className='day box'>{dayData.day.toUpperCase()}</div>
                 <div className='table-row'>
-                  {row.map((task, j) => {
+                  {dayData.data.map((task, j) => {
                     return (
-                      <Task days={days} j={j} isTaskNow={isTaskNow} i={i} task={task} />
+                      <div key={j} className='table-task box' id={isTaskNow(dayData.day, task.timings[0], task.timings[1]) ? 'selected-box' : ''}>
+                        <div className='table-task-time'>{task.timings.map((time, i) => i === task.timings.length - 1 ? `${time}` : `${time} - `)}</div>
+                        <div className='table-task-name'>{task.task}</div>
+                        <div className='table-task-teacher'>{task.teacher}</div>
+                    </div>
                     )
                   })}
                 </div>
               </div>
-            )
+            );
           })}
         </div>
-        <button className='update-btn' onClick={() => window.location.reload()}>Update</button>
+        <button className='update-btn' onClick={() => window.location.reload()}>Refresh</button>
       </div>
     );
   }
