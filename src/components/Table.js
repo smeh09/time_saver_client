@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/table.css';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -27,9 +28,11 @@ export default function Table() {
 
   const [tableSampleData, setTableSampleData] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:5000/api/table/61cf1f54f69a50fb26a4e216', {
+      const response = await fetch('http://localhost:5000/api/table/61d00eb0ad60b90e4e06d7db', {
         method: "GET",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -51,6 +54,7 @@ export default function Table() {
   } else {
     return (
       <div className='table-outer'>
+        <button onClick={() => navigate('/edit/table')} className='edit-redirect-btn update-btn'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
         <div className='table'>
           {tableSampleData.map((dayData, i) => {
             return (
@@ -71,7 +75,7 @@ export default function Table() {
             );
           })}
         </div>
-        <button className='update-btn' onClick={() => window.location.reload()}>Refresh</button>
+        <button title='Refresh' className='update-btn-edit' onClick={() => window.location.reload()}><i className="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
       </div>
     );
   }

@@ -47,20 +47,11 @@
   color: #29D3C0;
 }
 
-#selected-box {
-  background-color: rgb(250, 250, 100);
+#selected-box2 {
+  background: beige;
 }
 
-#selected-box > .table-task-time, #selected-box >  .table-task-name, #selected-box > .table-task-teacher {
-  color: black;
-}
-
-#selected-box > .table-task-name {
-  color: black;
-  letter-spacing: normal;
-}
-
-.table-task-teacher, .table-task-time {
+.table-task-teacher, .table-task-time-edit {
   font-size: 13px;
 }
 
@@ -68,46 +59,44 @@
   display: none;
 }
 
-.update-btn {
+.table-task-time-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.table-task-time-edit {
+  width: 40px;
+}
+
+.update-btn-edit {
   outline: none;
   background: transparent;
   border: none;
-  width: 70px;
-  height: 70px;
+  width: 150px;
+  height: 60px;
+  font-weight: bold;
+  padding: 10px 15px;
   font-size: 18px;
-  border-radius: 50%;
+  border-radius: 16rem;
+  color: rgb(37, 37, 37);
   background: var(--primary-button-gradient);
   font-weight: bold;
   transform: translate(0, 25px);
   cursor: pointer;
   border: 5px solid #262440;
   transition: all 0.2s;
+  margin-right: 20px;
 }
 
-.edit-redirect-btn {
-  margin-bottom: 20px;
-  border-radius: 16rem;
-  width: 150px;
-  color: rgb(37, 37, 37);
-  font-weight: bold;
-  height: 60px;
-}
-
-.fa {
-  color: rgb(37, 37, 37);
-  font-size: 25px;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.update-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.update-btn:hover {
+.update-btn-edit:hover {
   transform: translate(0, 20px);
+}
+
+.update-btn-back {
+  height: 60px;
+  border-radius: 16rem;
+  margin-right: 0;
 }
 
 .loader {
@@ -123,4 +112,18 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+input {
+  background: #262440;
+  border: none;
+  border-bottom: 2px solid #333150;
+  padding: 5px;
+  width: 100px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+input:focus {
+  border-bottom: 2px solid #29D3C0;
 }

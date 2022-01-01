@@ -6,6 +6,7 @@ import {
 import Header from './components/Header';
 import Authenticate from './components/Authenticate';
 import Table from "./components/Table";
+import EditTable from "./components/editMode/Table";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<></>} />
           <Route path='/authenticate' element={<Authenticate />} />
           <Route path='/table' element={<Table />} />
+          <Route path='/edit/table' element={<EditTable />} />
         </Routes>
       </Router>
     </div>
