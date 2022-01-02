@@ -11,7 +11,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 35px;
-  border-bottom: 2px solid #1B1A28;
+  border-bottom: 3px solid #1B1A28;
 }
 
 .authentication-link {
@@ -38,8 +38,6 @@
   outline: none;
   border: none;
   border-bottom: 3px solid #1B1A28;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   width: 270px;
   font-size: 15px;
   padding: 7px 15px;
@@ -49,7 +47,7 @@
 }
 
 .authenticate-form-control-input:focus {
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid #29bfd3;
 }
 
 form {
