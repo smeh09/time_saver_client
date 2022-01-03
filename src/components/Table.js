@@ -59,7 +59,10 @@ export default function Table() {
     return (
       <div className='table-outer'>
         <h2 className='table-heading-name'>{name}</h2>
-        <button onClick={() => navigate(`/table/edit/${id}`)} className='edit-redirect-btn update-btn'><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+        <div className='buttons'>
+          <button onClick={() => navigate(`/table/edit/${id}`)} className='edit-redirect-btn update-btn'><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+          <button title='Refresh' className='update-btn-edit' onClick={() => window.location.reload()}><i className="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
+        </div>
         <div className='table'>
           {tableSampleData.map((dayData, i) => {
             return (
@@ -80,7 +83,6 @@ export default function Table() {
             );
           })}
         </div>
-        <button title='Refresh' className='update-btn-edit' onClick={() => window.location.reload()}><i className="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
       </div>
     );
   }

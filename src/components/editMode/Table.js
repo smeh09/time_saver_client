@@ -6,14 +6,10 @@ import './styles/table.css';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-function formatTime(time) {
-  const formatted_time = time.split(':');
-  return formatted_time;
-}
-
 export default function EditTable() {
 
   const [tableSampleData, setTableSampleData] = useState([]);
+  const [name, setName] = useState('');
 
   const navigate = useNavigate();
 
@@ -31,6 +27,7 @@ export default function EditTable() {
       const tableSampleData = await response.json();
       if (tableSampleData.success) {
         setTableSampleData(tableSampleData.data);
+        setName(tableSampleData.name);
       }
     }
     fetchData();
@@ -104,6 +101,11 @@ export default function EditTable() {
   } else {
     return (
       <div className='table-outer'>
+        <h2 className='table-heading-name'>{name}</h2>
+        <div className='buttons'>
+          <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+          <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-times" aria-hidden="true"></i> Cancel</button>
+        </div>
         <div className='table'>
           {tableSampleData.map((dayData, i) => {
             return (
@@ -119,10 +121,6 @@ export default function EditTable() {
               </div>
             );
           })}
-        </div>
-        <div className='buttons'>
-          <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-          <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-times" aria-hidden="true"></i> Cancel</button>
         </div>
       </div>
     );
