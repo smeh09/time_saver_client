@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import genStartData from '../../modules/startData';
 
 export default function NewTable() {
-  const [columns, setColumns] = useState(3);
+  const [columns, setColumns] = useState(0);
   const [name, setName] = useState('');
 
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function NewTable() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (name.trim() === '' || columns <= 0) return;
+    if (name.trim() === '') return;
 
     const startData = genStartData(columns);
 
@@ -44,11 +44,6 @@ export default function NewTable() {
         <h2 className='create-table-heading'>Create a new table</h2>
         <div className='authentication-component-table'>
           <form>
-            <div className='authenticate-form-control'>
-              <div className='authenticate-form-control-input-label'>Number of columns</div>
-              <input required type='number' className='authenticate-form-control-input' placeholder='Please enter your number of columns' value={columns} onChange={e => setColumns(e.target.value)} />
-            </div>
-
             <div className='authenticate-form-control'>
               <div className='authenticate-form-control-input-label'>Name of table</div>
               <input required type='text' className='authenticate-form-control-input' placeholder='Please enter the name of your table' value={name} onChange={e => setName(e.target.value)} />

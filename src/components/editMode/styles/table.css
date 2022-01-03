@@ -98,9 +98,19 @@
   transform: translate(0, 20px);
 }
 
+.update-btn-edit, .update-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .update-btn-back {
   height: 60px;
   border-radius: 16rem;
+}
+
+.add-column-edit-btn {
+  width: 180px;
 }
 
 .loader {

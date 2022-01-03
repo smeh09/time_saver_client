@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Task from './Task';
-import Day from './Day';
+import DayColumn from './DayColumn';
 import genStartData from '../../modules/startData';
 import './styles/table.css';
 
@@ -114,10 +113,38 @@ export default function EditTable() {
         data: genStartData(getCells())
       })
     });
+
     const result = await res.json();
+
     if (result.success) {
       navigate(`/table/${id}`);
     } else {
+      alert(result.msg);
+    }
+  }
+
+  const addColumn = async () => {
+    const tableData = [...tableSampleData]
+    tableData.forEach(dayData => {
+      dayData.data.push({ task: '', teacher: '', timings: ['00:00', '00:00'] })
+    });
+
+    setTableSampleData(tableData);
+
+    const res = await fetch(`http://localhost:5000/api/table/${id}`, {
+      method: "PUT",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        data: tableSampleData
+      })
+    });
+
+    const result = await res.json();
+
+    if (!result.success) {
       alert(result.msg);
     }
   }
@@ -134,20 +161,12 @@ export default function EditTable() {
           <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
           <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-times" aria-hidden="true"></i> Cancel</button>
           <button title='Clear' className='update-btn-edit edit-redirect-btn' onClick={clearTable}><i className="fa fa-trash-o" aria-hidden="true"></i> Clear</button>
+          <button title='Clear' className='update-btn-edit edit-redirect-btn add-column-edit-btn' onClick={addColumn}><i className="fa fa-plus" aria-hidden="true"></i> Add column</button>
         </div>
         <div className='table'>
           {tableSampleData.map((dayData, i) => {
             return (
-              <div className='day-row' key={i}>
-                <Day dayData={dayData} />
-                <div className='table-row'>
-                  {dayData.data.map((task, j) => {
-                    return (
-                      <Task key={j} call={callSetData} setData={setData} setCallSetData={setCallSetData} dayData={dayData} i={i} task={task} />
-                    )
-                  })}
-                </div>
-              </div>
+              <DayColumn i={i} dayData={dayData} callSetData={callSetData} setData={setData} setCallSetData={setCallSetData} />
             );
           })}
         </div>
