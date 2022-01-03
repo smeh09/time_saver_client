@@ -89,6 +89,35 @@
   margin-right: 20px;
 }
 
+.buttons-setting-header {
+  display: flex;
+}
+
+.day-row-edit-buttons {
+  display: flex;
+  width: 115px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.day-row-edit-header-button {
+  color: rgb(37, 37, 37);
+  background: var(--primary-button-gradient);
+  width: 50px;
+  height: 50px;
+  font-size: 13px;
+  border: none;
+  margin: 3px;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.fa-edit-button-icon {
+  margin-right: 0 !important;
+}
+
 .buttons {
   margin-bottom: 40px;
   display: flex;

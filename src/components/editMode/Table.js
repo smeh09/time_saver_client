@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import DayColumn from './DayColumn';
+import DayRow from './DayRow';
+import DayRowHeader from './DayRowHeader';
 import genStartData from '../../modules/startData';
 import './styles/table.css';
 
@@ -161,12 +162,15 @@ export default function EditTable() {
           <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
           <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-times" aria-hidden="true"></i> Cancel</button>
           <button title='Clear' className='update-btn-edit edit-redirect-btn' onClick={clearTable}><i className="fa fa-trash-o" aria-hidden="true"></i> Clear</button>
-          <button title='Clear' className='update-btn-edit edit-redirect-btn add-column-edit-btn' onClick={addColumn}><i className="fa fa-plus" aria-hidden="true"></i> Add column</button>
+          {/* <button title='Add' className='update-btn-edit edit-redirect-btn add-column-edit-btn' onClick={addColumn}><i className="fa fa-plus" aria-hidden="true"></i> Add column</button> */}
         </div>
         <div className='table'>
           {tableSampleData.map((dayData, i) => {
             return (
-              <DayColumn i={i} dayData={dayData} callSetData={callSetData} setData={setData} setCallSetData={setCallSetData} />
+              <div key={i}>
+                {i === 0 ? <div className='buttons-setting-header'><DayRowHeader length={dayData.data.length} /></div> : <></>}
+                <DayRow i={i} dayData={dayData} callSetData={callSetData} setData={setData} setCallSetData={setCallSetData} />
+              </div>
             );
           })}
         </div>
