@@ -19,16 +19,6 @@
   display: flex;
 }
 
-.box {
-  width: 115px;
-  height: 115px;
-  border: 2px solid white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-}
-
 .table-task {
   justify-content: space-between;
 }
@@ -48,7 +38,7 @@
 }
 
 #selected-box {
-  background-color: rgb(250, 250, 100);
+  background-color: rgb(241, 241, 241);
 }
 
 #selected-box > .table-task-time, #selected-box >  .table-task-name, #selected-box > .table-task-teacher {
@@ -66,6 +56,14 @@
 
 .time {
   display: none;
+}
+
+.table-heading-name {
+  font-weight: 500;
+  margin-top: 30px;
+  text-align: left;
+  font-size: 30px;
+  color: #29bfd3;
 }
 
 .update-btn {

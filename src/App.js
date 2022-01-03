@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Authenticate from './components/Authenticate';
 import Table from "./components/Table";
 import EditTable from "./components/editMode/Table";
+import NewTable from "./components/newTable/NewTable";
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
         <Routes>
           <Route path='/' element={<></>} />
           <Route path='/authenticate' element={<Authenticate />} />
-          <Route path='/table' element={<Table />} />
-          <Route path='/edit/table' element={<EditTable />} />
+          <Route path='/table/:id' element={<Table />} />
+          <Route path='/table/edit/:id' element={<EditTable />} />
+          <Route path='/table/new' element={<NewTable />} />
         </Routes>
       </Router>
     </div>

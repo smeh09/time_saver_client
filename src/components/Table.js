@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './styles/table.css';
 
-const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const date = new Date();
-const day = days[date.getDay() - 1];
+const day = days[date.getDay()];
 const hour = date.getHours();
 const mins = date.getMinutes();
 
@@ -18,7 +18,7 @@ const isTaskNow = (d, time1, time2) => {
   const formattedTime1 = formatTime(time1);
   const formattedTime2 = formatTime(time2);
 
-  if (d.toLowerCase() !== day.toLocaleLowerCase()) return false;
+  if (d.toLowerCase() !== day.toLowerCase()) return false;
   if (hour < parseInt(formattedTime1[0]) || mins < parseInt(formattedTime1[1])) return false;
   if (hour > parseInt(formattedTime2[0]) || (hour === parseInt(formattedTime2[0]) && mins > parseInt(formattedTime2[1]))) return false;
   return true;
@@ -27,12 +27,15 @@ const isTaskNow = (d, time1, time2) => {
 export default function Table() {
 
   const [tableSampleData, setTableSampleData] = useState(false);
+  const [name, setName] = useState('');
 
   const navigate = useNavigate();
 
+  const { id } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:5000/api/table/61d00eb0ad60b90e4e06d7db', {
+      const response = await fetch(`http://localhost:5000/api/table/${id}`, {
         method: "GET",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -42,10 +45,11 @@ export default function Table() {
       const tableSampleData = await response.json();
       if (tableSampleData.success) {
         setTableSampleData(tableSampleData.data);
+        setName(tableSampleData.name);
       }      
     }
     fetchData();
-  }, [])
+  }, [id])
 
   if (!tableSampleData) {
     return (
@@ -54,7 +58,8 @@ export default function Table() {
   } else {
     return (
       <div className='table-outer'>
-        <button onClick={() => navigate('/edit/table')} className='edit-redirect-btn update-btn'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+        <h2 className='table-heading-name'>{name}</h2>
+        <button onClick={() => navigate(`/table/edit/${id}`)} className='edit-redirect-btn update-btn'><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
         <div className='table'>
           {tableSampleData.map((dayData, i) => {
             return (

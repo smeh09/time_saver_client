@@ -1,40 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Task from './Task';
 import Day from './Day';
 import './styles/table.css';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const date = new Date();
-const day = days[date.getDay() - 1];
-const hour = date.getHours();
-const mins = date.getMinutes();
 
 function formatTime(time) {
   const formatted_time = time.split(':');
   return formatted_time;
 }
 
-const isTaskNow = (d, time1, time2) => {
-
-  const formattedTime1 = formatTime(time1);
-  const formattedTime2 = formatTime(time2);
-
-  if (d.toLowerCase() !== day.toLocaleLowerCase()) return false;
-  if (hour < parseInt(formattedTime1[0]) || mins < parseInt(formattedTime1[1])) return false;
-  if (hour > parseInt(formattedTime2[0]) || (hour === parseInt(formattedTime2[0]) && mins > parseInt(formattedTime2[1]))) return false;
-  return true;
-}
-
 export default function EditTable() {
 
-  const [tableSampleData, setTableSampleData] = useState(false);
+  const [tableSampleData, setTableSampleData] = useState([]);
 
   const navigate = useNavigate();
 
+  const { id } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:5000/api/table/61d00eb0ad60b90e4e06d7db', {
+      const response = await fetch(`http://localhost:5000/api/table/${id}`, {
         method: "GET",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -47,7 +34,7 @@ export default function EditTable() {
       }
     }
     fetchData();
-  }, []);
+  }, [id]);
 
   let finalData = [];
   const [callSetData, setCallSetData] = useState(false);
@@ -89,7 +76,7 @@ export default function EditTable() {
       })
 
       const fetchUpdate = async () => {
-        const res = await fetch(`http://localhost:5000/api/table/61d00eb0ad60b90e4e06d7db`, {
+        const res = await fetch(`http://localhost:5000/api/table/${id}`, {
           method: "PUT",
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -101,7 +88,7 @@ export default function EditTable() {
         });
         const result = await res.json();
         if (result.success) {
-          navigate('/table');
+          navigate(`/table/${id}`);
         } else {
           alert(result.msg);
         }
@@ -125,7 +112,7 @@ export default function EditTable() {
                 <div className='table-row'>
                   {dayData.data.map((task, j) => {
                     return (
-                      <Task key={j} call={callSetData} setData={setData} setCallSetData={setCallSetData} dayData={dayData} i={i} isTaskNow={isTaskNow} task={task} />
+                      <Task key={j} call={callSetData} setData={setData} setCallSetData={setCallSetData} dayData={dayData} i={i} task={task} />
                     )
                   })}
                 </div>
@@ -134,8 +121,8 @@ export default function EditTable() {
           })}
         </div>
         <div className='buttons'>
-          <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-          <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate('/table')}><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
+          <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+          <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-times" aria-hidden="true"></i> Cancel</button>
         </div>
       </div>
     );
