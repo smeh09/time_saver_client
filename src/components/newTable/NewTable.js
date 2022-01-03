@@ -1,24 +1,13 @@
 import './styles/table.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import genStartData from '../../modules/startData';
 
 export default function NewTable() {
   const [columns, setColumns] = useState(3);
   const [name, setName] = useState('');
 
   const navigate = useNavigate();
-
-  const genStartData = (columns) => {
-    const startData = [];
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    for (let i = 0; i < 7; i++) {
-      startData.push({day: days[i], data: []});
-      for (let j = 0; j < columns; j++) {
-        startData[i].data.push({task: '', teacher: '', timings: ['00:00', '00:00']});
-      }
-    }
-    return startData;
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();

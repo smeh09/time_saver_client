@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Task from './Task';
 import Day from './Day';
+import genStartData from '../../modules/startData';
 import './styles/table.css';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -94,6 +95,33 @@ export default function EditTable() {
     }
   }
 
+  const getCells = () => {
+    let cells = [];
+    tableSampleData.forEach(dayData => {
+      cells.push(dayData.data.length);
+    });
+    return Math.max(...cells);
+  }
+
+  const clearTable = async () => {
+    const res = await fetch(`http://localhost:5000/api/table/${id}`, {
+      method: "PUT",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        data: genStartData(getCells())
+      })
+    });
+    const result = await res.json();
+    if (result.success) {
+      navigate(`/table/${id}`);
+    } else {
+      alert(result.msg);
+    }
+  }
+
   if (!tableSampleData) {
     return (
       <div className='loader'></div>
@@ -105,6 +133,7 @@ export default function EditTable() {
         <div className='buttons'>
           <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
           <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-times" aria-hidden="true"></i> Cancel</button>
+          <button title='Clear' className='update-btn-edit edit-redirect-btn' onClick={clearTable}><i className="fa fa-trash-o" aria-hidden="true"></i> Clear</button>
         </div>
         <div className='table'>
           {tableSampleData.map((dayData, i) => {
