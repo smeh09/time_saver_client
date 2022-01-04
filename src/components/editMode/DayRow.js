@@ -1,7 +1,7 @@
 import Task from "./Task";
 import Day from "./Day";
 
-const DayColumn = ({i, dayData, callSetData, setData, setCallSetData}) => {
+const DayRow = ({tableSampleData, i, dayData, callSetData, setData, setCallSetData}) => {
   return (
     <div className='day-row' key={i}>
       <Day dayData={dayData} />
@@ -16,4 +16,4 @@ const DayColumn = ({i, dayData, callSetData, setData, setCallSetData}) => {
   );
 };
 
-export default DayColumn;
+export default DayRow;
