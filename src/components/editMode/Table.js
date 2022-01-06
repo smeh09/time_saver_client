@@ -45,8 +45,7 @@ export default function EditTable() {
   let finalData = [];
   const [callSetData, setCallSetData] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     setCallSetData(true);
   };
 
@@ -146,13 +145,14 @@ export default function EditTable() {
     return <div className="loader"></div>;
   } else {
     return (
-      <form
-        className="table-outer"
-        onSubmit={(e) => handleSubmit(e.target.value)}
-      >
+      <div className="table-outer">
         <h2 className="table-heading-name">{name}</h2>
         <div className="buttons">
-          <button className="update-btn-edit" title="Save Table" type="submit">
+          <button
+            className="update-btn-edit"
+            title="Save Table"
+            onClick={handleSubmit}
+          >
             <i className="fa fa-floppy-o" aria-hidden="true"></i> Save
           </button>
           <button
@@ -198,7 +198,7 @@ export default function EditTable() {
             );
           })}
         </div>
-      </form>
+      </div>
     );
   }
 }
