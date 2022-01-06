@@ -3,9 +3,14 @@ import fetchUpdate from '../../modules/fetchUpdate';
 
 const DayRowHeaderChild = ({ id, tableSampleData, i }) => {
 
+  function isObjectSame(object1, object2) {
+    return object1.name === object2.name;
+  }
+
   const addColumn = async () => {
 
     await fetchUpdate(id, tableSampleData);
+
     const tableData = [...tableSampleData];
 
     tableData.forEach(dayData => {

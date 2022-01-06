@@ -144,7 +144,7 @@ export default function EditTable() {
             return (
               <div key={i}>
                 {i === 0 ? <div className='buttons-setting-header'><DayRowHeader id={id} tableSampleData={tableSampleData} length={dayData.data.length} /></div> : <></>}
-                <DayRow tableSampleData={tableSampleData} i={i} dayData={dayData} callSetData={callSetData} setData={setData} setCallSetData={setCallSetData} />
+                <DayRow setTableSampleData={setTableSampleData} tableSampleData={tableSampleData} i={i} dayData={dayData} callSetData={callSetData} setData={setData} setCallSetData={setCallSetData} />
               </div>
             );
           })}
