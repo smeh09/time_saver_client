@@ -20,7 +20,6 @@ export default function Task({call, setCallSetData, setData, i, task}) {
       setCallSetData(false);
     }
   }, [name, teacher, time1, time2, i, call, setData, setCallSetData]);
-
   return (
     <div className='table-task box'>
       <div className='table-task-time-container'>
