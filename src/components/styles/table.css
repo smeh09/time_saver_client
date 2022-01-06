@@ -23,25 +23,28 @@
   justify-content: space-between;
 }
 
-.table-task-name, .day {
+.table-task-name,
+.day {
   font-weight: bold;
   letter-spacing: 1.2px;
 }
 
 .table-task-name {
-  color: #29D3C0;
+  color: #29d3c0;
 }
 
 .day {
   justify-content: center;
-  color: #29D3C0;
+  color: #29d3c0;
 }
 
 #selected-box {
   background-color: rgb(241, 241, 241);
 }
 
-#selected-box > .table-task-time, #selected-box >  .table-task-name, #selected-box > .table-task-teacher {
+#selected-box > .table-task-time,
+#selected-box > .table-task-name,
+#selected-box > .table-task-teacher {
   color: black;
 }
 
@@ -50,7 +53,8 @@
   letter-spacing: normal;
 }
 
-.table-task-teacher, .table-task-time {
+.table-task-teacher,
+.table-task-time {
   font-size: 13px;
 }
 
@@ -111,7 +115,7 @@
 
 .loader {
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #29D3C0;
+  border-top: 5px solid #29d3c0;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -120,6 +124,10 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
