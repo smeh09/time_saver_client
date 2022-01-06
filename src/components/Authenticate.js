@@ -22,8 +22,56 @@ export default function Authenticate() {
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
 
+  const fetchUpdate = async (url, data) => {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data,
+      }),
+    });
+    const result = await res.json();
+    if (result.success) {
+      return true;
+    } else {
+      alert(result.msg);
+      return false;
+    }
+  };
+
+  const signIn = async () => {
+    const result = await fetchUpdate("http://localhost:5000/api/auth", {
+      email: signInEmail,
+      password: signInPassword,
+    });
+
+    if (result) return navigate("/tables");
+
+    return result;
+  };
+
+  const signUp = async () => {
+    const result = await fetchUpdate("http://localhost:5000/api/user", {
+      name: signUpName,
+      email: signUpEmail,
+      password: signUpPassword,
+    });
+
+    if (result) return navigate("/tables");
+
+    return result;
+  };
+
+  const changeDirections = () => {
+    type === "sign_in" ? signIn() : signUp();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    changeDirections();
   };
 
   return (

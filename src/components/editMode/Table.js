@@ -177,6 +177,7 @@ export default function EditTable() {
                 {i === 0 ? (
                   <div className="buttons-setting-header">
                     <DayRowHeader
+                      setTableSampleData={setTableSampleData}
                       id={id}
                       tableSampleData={tableSampleData}
                       length={dayData.data.length}

@@ -1,7 +1,7 @@
 import React from "react";
 import DayRowHeaderChild from "./DayRowHeaderChild";
 
-const DayRowHeader = ({ id, tableSampleData, length }) => {
+const DayRowHeader = ({ setTableSampleData, id, tableSampleData, length }) => {
   length = length + 1;
 
   let output = [];
@@ -9,6 +9,7 @@ const DayRowHeader = ({ id, tableSampleData, length }) => {
   for (let i = 0; i < length; i++) {
     output.push(
       <DayRowHeaderChild
+        setTableSampleData={setTableSampleData}
         id={id}
         tableSampleData={tableSampleData}
         key={i}
