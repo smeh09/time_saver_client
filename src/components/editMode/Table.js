@@ -9,39 +9,33 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 
 export default function EditTable() {
 
-  const [tableSampleData, setTableSampleData] = useState([{"day":"Monday","data":[{"task":"2","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"2","teacher":"","timings":["00:00","00:00"]}]},{"day":"Tuesday","data":[{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]}]},{"day":"Wednesday","data":[{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]}]},{"day":"Thursday","data":[{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]}]},{"day":"Friday","data":[{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]}]},{"day":"Saturday","data":[{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]}]},{"day":"Sunday","data":[{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]},{"task":"","teacher":"","timings":["00:00","00:00"]}]}]);
+  const [tableSampleData, setTableSampleData] = useState([]);
+
   const [name, setName] = useState('');
 
   const navigate = useNavigate();
 
   const { id } = useParams();
-
-  // console.log('parent: ', tableSampleData);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch(`http://localhost:5000/api/table/${id}`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Content-Type": "application/json"
-  //       }
-  //     });
-  //     const tableSampleData = await response.json();
-  //     if (tableSampleData.success) {
-  //       setTableSampleData(tableSampleData.data);
-  //       setName(tableSampleData.name);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [id]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:5000/api/table/${id}`, {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        }
+      });
+      const tableSampleData = await response.json();
+      if (tableSampleData.success) {
+        setTableSampleData(tableSampleData.data);
+        setName(tableSampleData.name);
+      }
+    }
+    fetchData();
+  }, [id]);
 
   let finalData = [];
-  const [callSetData, setCallSetData] = useState(false);
-
-  const handleSubmit = () => {
-    setCallSetData(true);
-  }
 
   const getTotalObjs = () => {
     let totalObjs = 0;
@@ -74,26 +68,6 @@ export default function EditTable() {
         }
         previousDay = obj.day;
       })
-
-      const fetchUpdate = async () => {
-        const res = await fetch(`http://localhost:5000/api/table/${id}`, {
-          method: "PUT",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            data: finalData
-          })
-        });
-        const result = await res.json();
-        if (result.success) {
-          navigate(`/table/${id}`);
-        } else {
-          alert(result.msg);
-        }
-      }
-      fetchUpdate();
     }
   }
 
@@ -135,16 +109,15 @@ export default function EditTable() {
       <div className='table-outer'>
         <h2 className='table-heading-name'>{name}</h2>
         <div className='buttons'>
-          <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-          <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-times" aria-hidden="true"></i> Cancel</button>
+          <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
           <button title='Clear' className='update-btn-edit edit-redirect-btn' onClick={clearTable}><i className="fa fa-trash-o" aria-hidden="true"></i> Clear</button>
         </div>
         <div className='table'>
           {tableSampleData.map((dayData, i) => {
             return (
               <div key={i}>
-                {i === 0 ? <div className='buttons-setting-header'><DayRowHeader id={id} setTableSampleData={setTableSampleData} tableSampleData={tableSampleData} length={dayData.data.length} /></div> : <></>}
-                <DayRow tableSampleData={tableSampleData} i={i} dayData={dayData} callSetData={callSetData} setData={setData} setCallSetData={setCallSetData} />
+                {i === 0 ? <div className='buttons-setting-header'><DayRowHeader id={id} tableSampleData={tableSampleData} length={dayData.data.length} /></div> : <></>}
+                <DayRow tableSampleData={tableSampleData} i={i} dayData={dayData} setData={setData}  />
               </div>
             );
           })}
