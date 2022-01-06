@@ -36,6 +36,11 @@ export default function EditTable() {
   }, [id]);
 
   let finalData = [];
+  const [callSetData, setCallSetData] = useState(false);
+
+  const handleSubmit = () => {
+    setCallSetData(true);
+  }
 
   const getTotalObjs = () => {
     let totalObjs = 0;
@@ -47,6 +52,49 @@ export default function EditTable() {
       });
     }
     return totalObjs;
+  }
+
+  const tempData = [];
+
+  const setData = (data) => {
+    tempData.push(data);
+
+    const totalObjs = getTotalObjs();
+
+    if (tempData.length === totalObjs) {
+
+      let previousDay = -1;
+
+      tempData.forEach(obj => {
+        if (previousDay === obj.day) {
+          finalData[obj.day].data.push({ task: obj.task, teacher: obj.teacher, timings: obj.timings });
+        } else {
+          finalData.push({ day: days[obj.day], data: [{ task: obj.task, teacher: obj.teacher, timings: obj.timings }] });
+        }
+        previousDay = obj.day;
+      })
+
+      const fetchUpdate = async () => {
+        const res = await fetch(`http://localhost:5000/api/table/${id}`, {
+          method: "PUT",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            data: finalData
+          })
+        });
+        const result = await res.json();
+        if (result.success) {
+          alert('Saved changes! ');
+          setTableSampleData(result.result.data);
+        } else {
+          alert(result.msg);
+        }
+      }
+      fetchUpdate();
+    }
   }
 
   const getCells = () => {
@@ -87,7 +135,7 @@ export default function EditTable() {
       <div className='table-outer'>
         <h2 className='table-heading-name'>{name}</h2>
         <div className='buttons'>
-          <button className='update-btn-edit' title='Save Table'><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+          <button className='update-btn-edit' title='Save Table' onClick={handleSubmit}><i className="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
           <button className='update-btn-edit update-btn-back' title='Save Table' onClick={() => navigate(`/table/${id}`)}><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
           <button title='Clear' className='update-btn-edit edit-redirect-btn' onClick={clearTable}><i className="fa fa-trash-o" aria-hidden="true"></i> Clear</button>
         </div>
@@ -96,7 +144,7 @@ export default function EditTable() {
             return (
               <div key={i}>
                 {i === 0 ? <div className='buttons-setting-header'><DayRowHeader id={id} tableSampleData={tableSampleData} length={dayData.data.length} /></div> : <></>}
-                <DayRow setTableSampleData={setTableSampleData} tableSampleData={tableSampleData} i={i} dayData={dayData} />
+                <DayRow setTableSampleData={setTableSampleData} tableSampleData={tableSampleData} i={i} dayData={dayData} callSetData={callSetData} setData={setData} setCallSetData={setCallSetData} />
               </div>
             );
           })}

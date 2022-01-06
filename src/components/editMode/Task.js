@@ -1,10 +1,24 @@
 import { useState, useEffect } from "react";
 
-export default function Task({setTableSampleData, tableSampleData, j, i, task}) {
+export default function Task({setTableSampleData, tableSampleData, j, call, setCallSetData, setData, i, task}) {
   const [time1, setTime1] = useState(task.timings[0]);
   const [time2, setTime2] = useState(task.timings[1]);
   const [name, setName] = useState(task.task);
   const [teacher, setTeacher] = useState(task.teacher);
+
+  useEffect(() => {
+    if (call) {
+      const timings = [time1, time2];
+  
+      setData({
+        task: name,
+        teacher,
+        timings,
+        day: i,
+      });
+      setCallSetData(false);
+    }
+  }, [name, teacher, time1, time2, i, call, setData, setCallSetData]);
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -14,7 +28,6 @@ export default function Task({setTableSampleData, tableSampleData, j, i, task}) 
     table[i].data[j].teacher = teacher;
     table[i].data[j].timings = [time1, time2];
     table[i].day = days[i];
-    setTableSampleData(table);
   }
 
   return (
