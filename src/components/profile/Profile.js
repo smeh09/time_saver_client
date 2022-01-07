@@ -42,12 +42,9 @@ const Profile = ({ setToken }) => {
       <img src={profileURL} className="profile-img" />
       <div className="profile-data">
         <div className="details">
+          <div className="data data-name">{name}</div>
           <div className="user-details-group">
-            <div className="label">USERNAME</div>
-            <div className="data">{name}</div>
-          </div>
-          <div className="user-details-group">
-            <div className="label">EMAIL</div>
+            <div className="label">Email</div>
             <div className="data">{email}</div>
           </div>
         </div>

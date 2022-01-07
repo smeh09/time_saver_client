@@ -3,23 +3,25 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  width: 350px;
+  margin: 50px auto;
+  box-shadow: 3px 3px 7px #161633;
+  background: #212149;
+  padding: 20px 10px;
+  border-radius: 7px;
 }
 
 .profile-img {
-  width: 175px;
-  height: 175px;
-  border: 10px solid rgb(44, 44, 44);
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  margin-bottom: 20px;
+  border: 7px solid rgb(51, 51, 51);
 }
 
 .profile-data {
-  background: rgb(20, 20, 20);
   padding: 30px;
   width: 300px;
   border-radius: 5px;
-  margin-top: 20px;
 }
 
 .user-details-group {
@@ -33,6 +35,19 @@
 .label {
   font-size: 19px;
   margin-bottom: 5px;
+}
+
+.data {
+  font-weight: 600;
+  letter-spacing: 1.2px;
+}
+
+.data-name {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgb(26, 26, 26);
 }
 
 .user-danger-stuff {
