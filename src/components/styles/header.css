@@ -3,23 +3,41 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: #262440;
-  padding: 20px;
   font-size: 18px;
   filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.25));
+}
+
+.logged_in {
+  padding: 10px 20px;
+}
+
+.logged_out {
+  padding: 20px;
 }
 
 #title {
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 2px;
-  color: #74C1E5;
+  color: #74c1e5;
 }
 
 #nav-list {
   display: flex;
+  align-items: center;
 }
 
 .nav-list-item {
   margin: 0 15px;
   list-style-type: none;
+}
+
+.pfp {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid rgb(59, 59, 59);
 }

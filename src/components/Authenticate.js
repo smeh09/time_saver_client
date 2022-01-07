@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./styles/authenticate.css";
 
-export default function Authenticate() {
+export default function Authenticate({ token, setToken }) {
   const params = new URLSearchParams(useLocation().search);
   const type = params.get("type");
 
@@ -35,6 +35,11 @@ export default function Authenticate() {
     });
     const result = await res.json();
     if (result.success) {
+      setToken(result.token);
+
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("profilePhotoURL", result.profilePhotoURL);
+
       return true;
     } else {
       alert(result.msg);

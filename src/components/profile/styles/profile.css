@@ -1,0 +1,64 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.profile-img {
+  width: 175px;
+  height: 175px;
+  border: 10px solid rgb(44, 44, 44);
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profile-data {
+  background: rgb(20, 20, 20);
+  padding: 30px;
+  width: 300px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.user-details-group {
+  margin-bottom: 20px;
+}
+
+.user-details-group:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 19px;
+  margin-bottom: 5px;
+}
+
+.user-danger-stuff {
+  width: 100%;
+  text-align: center;
+}
+
+.user-log-out {
+  width: 100%;
+  padding: 10px;
+  background: rgb(255, 60, 60);
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.details {
+  margin-bottom: 40px;
+}
+
+.user-log-out:hover {
+  background: rgb(223, 52, 52);
+}
+
+.user-log-out:active {
+  background: rgb(184, 45, 45);
+}
