@@ -24,34 +24,45 @@ const Profile = ({ setToken }) => {
         setName(profileData.data.name);
         setEmail(profileData.data.email);
         setProfileURL(profileData.data.profilePhoto);
+      } else {
+        setName(false);
+        setEmail(false);
+        setProfileURL(false);
+        alert(profileData.msg);
       }
     };
     fetchData();
-  }, []);
+  }, [token]);
 
   const navigate = useNavigate();
 
   const logOut = () => {
     setToken(false);
     localStorage.setItem("token", "null");
+    localStorage.setItem("profilePhotoURL", "null");
     navigate("/");
   };
 
+  if (!name && !email && !profileURL)
+    return <div>Some error occured please, try signing out and in</div>;
+
   return (
-    <div className="profile">
-      <img src={profileURL} className="profile-img" />
-      <div className="profile-data">
-        <div className="details">
-          <div className="data data-name">{name}</div>
-          <div className="user-details-group">
-            <div className="label">Email</div>
-            <div className="data">{email}</div>
+    <div className="profile-outer">
+      <div className="profile">
+        <img alt="pfp" src={profileURL} className="profile-img" />
+        <div className="profile-data">
+          <div className="details">
+            <div className="data data-name">{name}</div>
+            <div className="user-details-group">
+              <div className="label">Email</div>
+              <div className="data">{email}</div>
+            </div>
           </div>
-        </div>
-        <div className="user-danger-stuff">
-          <button onClick={logOut} className="user-log-out" title="Log out! ">
-            Log out
-          </button>
+          <div className="user-danger-stuff">
+            <button onClick={logOut} className="user-log-out" title="Log out! ">
+              Log out
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -35,10 +35,9 @@ export default function Authenticate({ token, setToken }) {
     });
     const result = await res.json();
     if (result.success) {
-      setToken(result.token);
-
       localStorage.setItem("token", result.token);
       localStorage.setItem("profilePhotoURL", result.profilePhotoURL);
+      setToken(result.token);
 
       return true;
     } else {
