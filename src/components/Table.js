@@ -65,7 +65,7 @@ export default function Table() {
       }
     };
     fetchData();
-  }, [id]);
+  }, [navigate, id]);
 
   if (!tableSampleData) {
     return <div className="loader"></div>;
