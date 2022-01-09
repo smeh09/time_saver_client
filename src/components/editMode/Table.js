@@ -31,6 +31,7 @@ export default function EditTable() {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("token"),
         },
       });
       const tableSampleData = await response.json();
@@ -95,6 +96,7 @@ export default function EditTable() {
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
           },
           body: JSON.stringify({
             data: finalData,
@@ -126,6 +128,7 @@ export default function EditTable() {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        "x-auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({
         data: genStartData(getCells()),
@@ -141,7 +144,7 @@ export default function EditTable() {
     }
   };
 
-  if (!tableSampleData) {
+  if (!tableSampleData || tableSampleData === []) {
     return <div className="loader"></div>;
   } else {
     return (

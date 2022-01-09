@@ -51,6 +51,7 @@ export default function Table() {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("token"),
         },
       });
       const tableSampleData = await response.json();

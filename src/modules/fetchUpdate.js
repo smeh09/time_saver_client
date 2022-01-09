@@ -3,11 +3,12 @@ const fetchUpdate = async (id, finalData) => {
     method: "PUT",
     headers: {
       "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "x-auth-token": localStorage.getItem("token"),
     },
     body: JSON.stringify({
-      data: finalData
-    })
+      data: finalData,
+    }),
   });
   const result = await res.json();
   if (result.success) {
@@ -15,6 +16,6 @@ const fetchUpdate = async (id, finalData) => {
   } else {
     return result.msg;
   }
-}
+};
 
 export default fetchUpdate;

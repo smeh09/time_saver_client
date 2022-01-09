@@ -43,8 +43,7 @@ const Profile = ({ setToken }) => {
     navigate("/");
   };
 
-  if (!name && !email && !profileURL)
-    return <div>Some error occured please, try signing out and in</div>;
+  if (!name && !email && !profileURL) return <div className="loader"></div>;
 
   return (
     <div className="profile-outer">

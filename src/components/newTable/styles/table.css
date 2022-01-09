@@ -1,8 +1,7 @@
 .create-table-heading {
-  font-weight: 600;
   text-align: center;
-  color: #29D3C0;
+  color: #74c1e5;
   padding-top: 20px;
   padding-bottom: 15px;
-  border-bottom: 3px solid rgb(27, 27, 27);
+  border-bottom: 2px solid rgb(27, 27, 27);
 }

@@ -16,12 +16,15 @@ export default function NewTable() {
 
     const startData = genStartData(columns);
 
+    console.log(startData);
+
     const fetchUpdate = async () => {
       const res = await fetch(`http://localhost:5000/api/table/`, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("token"),
         },
         body: JSON.stringify({
           data: startData,

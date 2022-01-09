@@ -1,6 +1,3 @@
-.profile-outer {
-}
-
 .profile {
   display: flex;
   flex-direction: column;
@@ -17,7 +14,6 @@
 .profile-img {
   width: 150px;
   height: 150px;
-  /* border-radius: 50%; */
   border: 7px solid rgb(51, 51, 51);
 }
 
