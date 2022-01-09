@@ -48,7 +48,7 @@ const Tables = () => {
         </div>
         <button
           className="add-table-button"
-          onClick={() => navigate("/table/new")}
+          onClick={() => navigate("/table/add/type")}
           title="Add a table"
         >
           +

@@ -1,0 +1,39 @@
+.add-method-container {
+  margin: 50px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.add-method-heading {
+  font-size: 35px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.add-method-options {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-method-option {
+  color: rgb(37, 37, 37);
+  background: var(--primary-button-gradient);
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  margin: 3px;
+  border-radius: 16rem;
+  cursor: pointer;
+  text-align: center;
+  margin: 20px;
+  transition: all 0.3s;
+}
+
+.add-method-option:hover {
+  transform: translate(0, -5px);
+}

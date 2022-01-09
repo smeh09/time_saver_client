@@ -1,37 +1,25 @@
-import "./styles/table.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import genStartData from "../../modules/startData";
 
-export default function NewTable() {
-  const columns = 0;
-  const [name, setName] = useState("");
-
+const JoinTable = () => {
+  const [code, setCode] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (name.trim() === "") return;
-
-    const startData = genStartData(columns);
-
     const fetchUpdate = async () => {
-      const res = await fetch(`http://localhost:5000/api/table/`, {
+      const res = await fetch(`http://localhost:5000/api/table/${code}`, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
           "x-auth-token": localStorage.getItem("token"),
         },
-        body: JSON.stringify({
-          data: startData,
-          name,
-        }),
       });
       const result = await res.json();
       if (result.success) {
-        navigate(`/table/edit/${result.result._id}`);
+        navigate(`/table/${result.result._id}`);
       } else {
         alert(result.msg);
       }
@@ -42,20 +30,20 @@ export default function NewTable() {
   return (
     <div id="authentication-modal-outer">
       <div id="authentication-modal-inner">
-        <h2 className="create-table-heading">Create a new table</h2>
+        <h2 className="create-table-heading">Join a table</h2>
         <div className="authentication-component-table">
           <form>
             <div className="authenticate-form-control">
               <div className="authenticate-form-control-input-label">
-                Name of table
+                Code of table
               </div>
               <input
                 required
                 type="text"
                 className="authenticate-form-control-input"
-                placeholder="Please enter the name of your table"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder="Please enter the code"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
               />
             </div>
 
@@ -65,7 +53,7 @@ export default function NewTable() {
                 id="authenticate-submit-button"
                 onClick={(e) => handleSubmit(e)}
               >
-                Create Table{" "}
+                Join Table{" "}
               </button>
             </div>
           </form>
@@ -73,4 +61,6 @@ export default function NewTable() {
       </div>
     </div>
   );
-}
+};
+
+export default JoinTable;

@@ -6,6 +6,8 @@ import EditTable from "./components/editMode/Table";
 import NewTable from "./components/newTable/NewTable";
 import Profile from "./components/profile/Profile";
 import Tables from "./components/Tables/Tables";
+import AddMethod from "./components/addMethod/AddMethod";
+import JoinTable from "./components/joinTable/JoinTable";
 import { useState } from "react";
 
 function App() {
@@ -28,11 +30,13 @@ function App() {
           <Route path="/table/:id" element={<Table />} />
           <Route path="/table/edit/:id" element={<EditTable />} />
           <Route path="/table/new" element={<NewTable />} />
+          <Route path="/table/join" element={<JoinTable />} />
           <Route
             path="/account/profile"
             element={<Profile setToken={setToken} />}
           />
           <Route path="/tables" element={<Tables />} />
+          <Route path="/table/add/type" element={<AddMethod />} />"
         </Routes>
       </Router>
     </div>
