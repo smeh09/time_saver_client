@@ -17,6 +17,7 @@ const days = [
 
 export default function EditTable() {
   const [tableSampleData, setTableSampleData] = useState([]);
+  const [isAdmin, setIsAdmin] = useState("");
 
   const [name, setName] = useState("");
 
@@ -38,6 +39,12 @@ export default function EditTable() {
       if (tableSampleData.success) {
         setTableSampleData(tableSampleData.data);
         setName(tableSampleData.name);
+        setIsAdmin(tableSampleData.isAdmin);
+        if (!tableSampleData.isAdmin) {
+          navigate("/tables");
+        }
+      } else {
+        alert(tableSampleData.msg);
       }
     };
     fetchData();

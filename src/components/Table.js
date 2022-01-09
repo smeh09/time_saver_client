@@ -39,6 +39,7 @@ const isTaskNow = (d, time1, time2) => {
 export default function Table() {
   const [tableSampleData, setTableSampleData] = useState(false);
   const [name, setName] = useState("");
+  const [isAdmin, setIsAdmin] = useState("");
 
   const navigate = useNavigate();
 
@@ -58,6 +59,9 @@ export default function Table() {
       if (tableSampleData.success) {
         setTableSampleData(tableSampleData.data);
         setName(tableSampleData.name);
+        setIsAdmin(tableSampleData.isAdmin);
+      } else {
+        alert(tableSampleData.msg);
       }
     };
     fetchData();
@@ -70,13 +74,17 @@ export default function Table() {
       <div className="table-outer">
         <h2 className="table-heading-name">{name}</h2>
         <div className="buttons">
-          <button
-            title="Edit"
-            onClick={() => navigate(`/table/edit/${id}`)}
-            className="edit-redirect-btn update-btn"
-          >
-            <i className="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-          </button>
+          {isAdmin ? (
+            <button
+              title="Edit"
+              onClick={() => navigate(`/table/edit/${id}`)}
+              className="edit-redirect-btn update-btn"
+            >
+              <i className="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+            </button>
+          ) : (
+            ""
+          )}
           <button
             title="Refresh"
             className="update-btn-edit"
