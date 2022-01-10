@@ -39,6 +39,7 @@
 .data {
   font-weight: 600;
   letter-spacing: 1.2px;
+  margin-bottom: 20px;
 }
 
 .data-name {

@@ -8,6 +8,30 @@ const Members = () => {
   const { id } = useParams();
 
   const [members, setMembers] = useState([]);
+  const [isCurrentUserAdmin, setIsCurrentUserAdmin] = useState(false);
+
+  const leave = () => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://localhost:5000/api/table/leave/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      const result = await response.json();
+      if (result.success) {
+        navigate("/tables");
+      } else {
+        alert(result.msg);
+      }
+    };
+    fetchData();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,23 +50,59 @@ const Members = () => {
         alert(tableSampleData.msg);
       }
     };
+    const isAdminFetch = async () => {
+      const response = await fetch(
+        `http://localhost:5000/api/admin/isAdmin/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      const isAdminData = await response.json();
+      if (isAdminData.success) {
+        setIsCurrentUserAdmin(isAdminData.isAdmin);
+      } else {
+        alert(isAdminData.msg);
+      }
+    };
     fetchData();
+    isAdminFetch();
   }, [navigate, id]);
 
   if (members.length === 0) return <div className="loader"></div>;
-
-  console.log(members);
 
   return (
     <div className="members-container">
       <h2 className="members-heading">Members</h2>
       <div className="button-container">
+        {isCurrentUserAdmin ? (
+          <button
+            className="add-table-button"
+            onClick={() => navigate(`/members/add/${id}`)}
+            title="Add a member"
+          >
+            Add a member
+          </button>
+        ) : (
+          <></>
+        )}
         <button
-          className="add-table-button"
-          onClick={() => navigate(`/member/add/${id}`)}
-          title="Add a member"
+          title="Leave"
+          className="add-table-button members-button"
+          onClick={leave}
         >
-          Add a member
+          Leave Table
+        </button>
+        <button
+          title="Leave"
+          className="add-table-button members-button"
+          onClick={() => navigate(`/table/${id}`)}
+        >
+          Back
         </button>
       </div>
       <div className="members">
@@ -54,6 +114,7 @@ const Members = () => {
               email={member.email}
               profilePhoto={member.profilePhoto}
               isUserAdmin={member.isUserAdmin}
+              isCurrentUserAdmin={isCurrentUserAdmin}
               id={member.id}
               tableId={id}
             />

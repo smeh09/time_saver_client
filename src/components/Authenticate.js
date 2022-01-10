@@ -21,6 +21,9 @@ export default function Authenticate({ token, setToken }) {
   const [signUpName, setSignUpName] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
+  const [signUpSchool, setSignUpSchool] = useState("");
+  const [signUpSection, setSignUpSection] = useState("");
+  const [signUpClass, setSignUpClass] = useState("");
 
   const fetchUpdate = async (url, data) => {
     const res = await fetch(url, {
@@ -62,6 +65,9 @@ export default function Authenticate({ token, setToken }) {
       name: signUpName,
       email: signUpEmail,
       password: signUpPassword,
+      school: signUpSchool,
+      class: signUpClass,
+      section: signUpSection,
     });
 
     if (result) return navigate("/tables");
@@ -180,6 +186,48 @@ export default function Authenticate({ token, setToken }) {
                     placeholder="Please enter your Password"
                     value={signUpPassword}
                     onChange={(e) => setSignUpPassword(e.target.value)}
+                  />
+                </div>
+
+                <div className="authenticate-form-control">
+                  <div className="authenticate-form-control-input-label">
+                    School
+                  </div>
+                  <input
+                    required
+                    type="text"
+                    className="authenticate-form-control-input"
+                    placeholder="Please enter your school"
+                    value={signUpSchool}
+                    onChange={(e) => setSignUpSchool(e.target.value)}
+                  />
+                </div>
+
+                <div className="authenticate-form-control">
+                  <div className="authenticate-form-control-input-label">
+                    Grade
+                  </div>
+                  <input
+                    required
+                    type="text"
+                    className="authenticate-form-control-input"
+                    placeholder="Please enter your class"
+                    value={signUpClass}
+                    onChange={(e) => setSignUpClass(e.target.value)}
+                  />
+                </div>
+
+                <div className="authenticate-form-control">
+                  <div className="authenticate-form-control-input-label">
+                    Section
+                  </div>
+                  <input
+                    required
+                    type="text"
+                    className="authenticate-form-control-input"
+                    placeholder="Please enter your section"
+                    value={signUpSection}
+                    onChange={(e) => setSignUpSection(e.target.value)}
                   />
                 </div>
 

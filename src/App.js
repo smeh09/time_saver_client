@@ -9,7 +9,8 @@ import Tables from "./components/Tables/Tables";
 import AddMethod from "./components/addMethod/AddMethod";
 import JoinTable from "./components/joinTable/JoinTable";
 import Members from "./components/members/Members";
-import AddMembers from "./components/addMembers/AddMembers";
+import AddMember from "./components/addMember/AddMember";
+import JoinLink from "./components/joinLink/JoinLink";
 import { useState } from "react";
 
 function App() {
@@ -40,7 +41,8 @@ function App() {
           <Route path="/tables" element={<Tables />} />
           <Route path="/table/add/type" element={<AddMethod />} />
           <Route path="/table/members/:id" element={<Members />} />
-          <Route path="/member/add/:id" element={<AddMembers />} />
+          <Route path="/members/add/:id" element={<AddMember />} />
+          <Route path="/table/join/link/:id" element={<JoinLink />} />
         </Routes>
       </Router>
     </div>

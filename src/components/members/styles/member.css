@@ -13,6 +13,10 @@
   align-items: center;
 }
 
+.name {
+  margin-right: 20px;
+}
+
 .member-pfp {
   margin-right: 10px;
 }
