@@ -30,6 +30,7 @@ export default function Header({ title, token, setToken }) {
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate("/account/profile")}
                 src={profilePhotoURL}
+                alt="pfp"
                 className="pfp"
               />
             </li>
