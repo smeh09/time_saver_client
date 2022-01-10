@@ -36,6 +36,15 @@ const Members = () => {
   return (
     <div className="members-container">
       <h2 className="members-heading">Members</h2>
+      <div className="button-container">
+        <button
+          className="add-table-button"
+          onClick={() => navigate(`/member/add/${id}`)}
+          title="Add a member"
+        >
+          Add a member
+        </button>
+      </div>
       <div className="members">
         {members.map((member, i) => {
           return (
