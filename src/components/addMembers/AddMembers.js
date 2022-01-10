@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 const AddMembers = () => {
   const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [result, setResult] = useState(false);
 
   const { id } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitted(true);
     const fetchUpdate = async () => {
       const res = await fetch(
         `http://localhost:5000/api/table/invitation/sendInvite/${id}`,
@@ -25,15 +28,23 @@ const AddMembers = () => {
         }
       );
       const result = await res.json();
+      setResult(true);
       if (result.success) {
         alert(`Successfully sent invite to ${email}`);
+        setResult(false);
+        setSubmitted(false);
       } else {
         alert("Some error occured");
+        setResult(false);
+        setSubmitted(false);
       }
     };
     fetchUpdate();
   };
 
+  if (submitted && !result) {
+    return <div className="loader"></div>;
+  }
   return (
     <div id="authentication-modal-outer">
       <div id="authentication-modal-inner">
