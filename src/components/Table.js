@@ -47,14 +47,17 @@ export default function Table() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:5000/api/table/${id}`, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/table/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       const tableSampleData = await response.json();
       if (tableSampleData.success) {
         setTableSampleData(tableSampleData.data);

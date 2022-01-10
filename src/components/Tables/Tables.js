@@ -12,14 +12,17 @@ const Tables = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:5000/api/table/`, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-        },
-      });
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/table/`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+        }
+      );
       const tables = await response.json();
       if (tables.success) {
         setTables(tables.tables);

@@ -21,14 +21,17 @@ const Member = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:5000/api/user/`, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/user/`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       const profileData = await response.json();
       if (profileData.success) {
         setEmail(profileData.data.email);
@@ -45,7 +48,7 @@ const Member = ({
   const makeAdmin = () => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:5000/api/admin/makeAdmin/${tableId}`,
+        `https://time-saver-server.herokuapp.com/api/admin/makeAdmin/${tableId}`,
         {
           method: "PUT",
           headers: {
@@ -71,7 +74,7 @@ const Member = ({
   const removeAdmin = () => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:5000/api/admin/removeAdmin/${tableId}`,
+        `https://time-saver-server.herokuapp.com/api/admin/removeAdmin/${tableId}`,
         {
           method: "PUT",
           headers: {
@@ -97,7 +100,7 @@ const Member = ({
   const removeUser = () => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:5000/api/table/remove/${tableId}`,
+        `https://time-saver-server.herokuapp.com/api/table/remove/${tableId}`,
         {
           method: "DELETE",
           headers: {

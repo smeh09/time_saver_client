@@ -8,14 +8,17 @@ const JoinLink = () => {
 
   useEffect(() => {
     const fetchUpdate = async () => {
-      const res = await fetch(`http://localhost:5000/api/table/${id}`, {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
+      const res = await fetch(
+        `https://time-saver-server.herokuapp.com/api/table/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       const result = await res.json();
       if (result.success) {
         navigate(`/table/${result.result._id}`);
@@ -25,14 +28,17 @@ const JoinLink = () => {
     };
 
     const doStuff = async () => {
-      const response = await fetch(`http://localhost:5000/api/user/`, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/user/`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       const profileData = await response.json();
       if (!profileData.success) {
         return;

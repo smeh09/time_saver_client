@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./styles/addMember.css";
 
 const AddMember = () => {
@@ -15,12 +15,12 @@ const AddMember = () => {
         </div>
         <div className="add-member-control">
           <div className="add-member-control-heading">Link</div>
-          <Link
-            to={`/table/join/link/${id}`}
+          <a
+            href={`https://time-saver-client.vercel.app/table/join/link/${id}`}
             className="add-member-control-link"
           >
-            {`http://localhost:3000/table/join/link/${id}`}
-          </Link>
+            {`https://time-saver-client.vercel.app/table/join/link/${id}`}
+          </a>
         </div>
       </div>
     </div>

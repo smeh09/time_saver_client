@@ -26,14 +26,17 @@ export default function EditTable() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:5000/api/table/${id}`, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/table/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       const tableSampleData = await response.json();
       if (tableSampleData.success) {
         setTableSampleData(tableSampleData.data);
@@ -96,17 +99,20 @@ export default function EditTable() {
       });
 
       const fetchUpdate = async () => {
-        const res = await fetch(`http://localhost:5000/api/table/${id}`, {
-          method: "PUT",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-            "x-auth-token": localStorage.getItem("token"),
-          },
-          body: JSON.stringify({
-            data: finalData,
-          }),
-        });
+        const res = await fetch(
+          `https://time-saver-server.herokuapp.com/api/table/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+              "x-auth-token": localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+              data: finalData,
+            }),
+          }
+        );
         const result = await res.json();
         if (result.success) {
           alert("Saved changes! ");
@@ -128,17 +134,20 @@ export default function EditTable() {
   };
 
   const clearTable = async () => {
-    const res = await fetch(`http://localhost:5000/api/table/${id}`, {
-      method: "PUT",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        "x-auth-token": localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        data: genStartData(getCells()),
-      }),
-    });
+    const res = await fetch(
+      `https://time-saver-server.herokuapp.com/api/table/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          data: genStartData(getCells()),
+        }),
+      }
+    );
 
     const result = await res.json();
 

@@ -50,10 +50,13 @@ export default function Authenticate({ token, setToken }) {
   };
 
   const signIn = async () => {
-    const result = await fetchUpdate("http://localhost:5000/api/auth", {
-      email: signInEmail,
-      password: signInPassword,
-    });
+    const result = await fetchUpdate(
+      "https://time-saver-server.herokuapp.com/api/auth",
+      {
+        email: signInEmail,
+        password: signInPassword,
+      }
+    );
 
     if (result) return navigate("/tables");
 
@@ -61,14 +64,17 @@ export default function Authenticate({ token, setToken }) {
   };
 
   const signUp = async () => {
-    const result = await fetchUpdate("http://localhost:5000/api/user", {
-      name: signUpName,
-      email: signUpEmail,
-      password: signUpPassword,
-      school: signUpSchool,
-      class: signUpClass,
-      section: signUpSection,
-    });
+    const result = await fetchUpdate(
+      "https://time-saver-server.herokuapp.com/api/user",
+      {
+        name: signUpName,
+        email: signUpEmail,
+        password: signUpPassword,
+        school: signUpSchool,
+        class: signUpClass,
+        section: signUpSection,
+      }
+    );
 
     if (result) return navigate("/tables");
 

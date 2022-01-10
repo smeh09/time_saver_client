@@ -14,14 +14,17 @@ const Profile = ({ setToken }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:5000/api/user/`, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-        },
-      });
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/user/`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+        }
+      );
       const profileData = await response.json();
       if (profileData.success) {
         setName(profileData.data.name);

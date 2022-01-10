@@ -13,7 +13,7 @@ const Members = () => {
   const leave = () => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:5000/api/table/leave/${id}`,
+        `https://time-saver-server.herokuapp.com/api/table/leave/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -35,14 +35,17 @@ const Members = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:5000/api/table/${id}`, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/table/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       const tableSampleData = await response.json();
       if (tableSampleData.success) {
         setMembers(tableSampleData.members);
@@ -52,7 +55,7 @@ const Members = () => {
     };
     const isAdminFetch = async () => {
       const response = await fetch(
-        `http://localhost:5000/api/admin/isAdmin/${id}`,
+        `https://time-saver-server.herokuapp.com/api/admin/isAdmin/${id}`,
         {
           method: "GET",
           headers: {

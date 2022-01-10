@@ -9,14 +9,17 @@ const JoinTable = () => {
     e.preventDefault();
 
     const fetchUpdate = async () => {
-      const res = await fetch(`http://localhost:5000/api/table/${code}`, {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
+      const res = await fetch(
+        `https://time-saver-server.herokuapp.com/api/table/${code}`,
+        {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       const result = await res.json();
       if (result.success) {
         navigate(`/table/${result.result._id}`);
