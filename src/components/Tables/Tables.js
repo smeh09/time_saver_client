@@ -36,7 +36,16 @@ const Tables = () => {
     return (
       <div className="table-container">
         <h2 className="table-heading">Tables</h2>
-        <div className="tables">
+        <div className="button-container">
+          <button
+            className="add-table-button"
+            onClick={() => navigate("/table/add/type")}
+            title="Add a table"
+          >
+            Add a table
+          </button>
+        </div>
+        <div className="main-page-tables">
           {tables.map((table, i) => (
             <TableCard
               key={i}
@@ -46,13 +55,6 @@ const Tables = () => {
             />
           ))}
         </div>
-        <button
-          className="add-table-button"
-          onClick={() => navigate("/table/add/type")}
-          title="Add a table"
-        >
-          +
-        </button>
       </div>
     );
   }

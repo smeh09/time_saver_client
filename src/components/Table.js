@@ -92,6 +92,13 @@ export default function Table() {
           >
             <i className="fa fa-refresh" aria-hidden="true"></i> Refresh
           </button>
+          <button
+            title="Members"
+            className="update-btn-edit"
+            onClick={() => navigate(`/table/members/${id}`)}
+          >
+            Members
+          </button>
         </div>
         <div className="table">
           {tableSampleData.map((dayData, i) => {

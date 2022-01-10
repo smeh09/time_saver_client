@@ -1,0 +1,34 @@
+.member {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #262440;
+  border-bottom: 2px solid rgb(26, 26, 26);
+  padding: 0 20px;
+  height: 80px;
+}
+
+.member-name-pfp {
+  display: flex;
+  align-items: center;
+}
+
+.member-pfp {
+  margin-right: 10px;
+}
+
+#admin {
+  color: #74c1e5;
+}
+
+.admin-bold {
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: #74c1e5;
+}
+
+.members-button {
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 16px;
+}

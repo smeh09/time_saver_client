@@ -8,6 +8,7 @@ import Profile from "./components/profile/Profile";
 import Tables from "./components/Tables/Tables";
 import AddMethod from "./components/addMethod/AddMethod";
 import JoinTable from "./components/joinTable/JoinTable";
+import Members from "./components/members/Members";
 import { useState } from "react";
 
 function App() {
@@ -36,7 +37,8 @@ function App() {
             element={<Profile setToken={setToken} />}
           />
           <Route path="/tables" element={<Tables />} />
-          <Route path="/table/add/type" element={<AddMethod />} />"
+          <Route path="/table/add/type" element={<AddMethod />} />
+          <Route path="/table/members/:id" element={<Members />} />
         </Routes>
       </Router>
     </div>

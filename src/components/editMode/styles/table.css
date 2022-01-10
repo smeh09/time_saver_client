@@ -33,25 +33,27 @@
   justify-content: space-between;
 }
 
-.table-task-name, .day {
+.table-task-name,
+.day {
   font-weight: bold;
   letter-spacing: 1.2px;
 }
 
 .table-task-name {
-  color: #29D3C0;
+  color: #29d3c0;
 }
 
 .day {
   justify-content: center;
-  color: #29D3C0;
+  color: #29d3c0;
 }
 
 #selected-box2 {
   background: beige;
 }
 
-.table-task-teacher, .table-task-time-edit {
+.table-task-teacher,
+.table-task-time-edit {
   font-size: 13px;
 }
 
@@ -112,6 +114,11 @@
   border-radius: 50%;
   cursor: pointer;
   text-align: center;
+  transition: all 0.1s;
+}
+
+.day-row-edit-header-button:hover {
+  transform: translate(0, -5px);
 }
 
 .fa-edit-button-icon {
@@ -127,7 +134,8 @@
   transform: translate(0, 20px);
 }
 
-.update-btn-edit, .update-btn {
+.update-btn-edit,
+.update-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,17 +152,21 @@
 
 .loader {
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #29D3C0;
+  border-top: 5px solid #29d3c0;
   border-radius: 50%;
   width: 120px;
   height: 120px;
-  animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite;
   margin: 100px auto;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 input {
@@ -168,5 +180,5 @@ input {
 }
 
 input:focus {
-  border-bottom: 2px solid #29D3C0;
+  border-bottom: 2px solid #29d3c0;
 }
