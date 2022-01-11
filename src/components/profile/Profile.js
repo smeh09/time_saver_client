@@ -52,6 +52,26 @@ const Profile = ({ setToken }) => {
     navigate("/");
   };
 
+  const deleteAccount = async () => {
+    const response = await fetch(
+      `https://time-saver-server.herokuapp.com/api/user/`,
+      {
+        method: "DELETE",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+      }
+    );
+    const result = await response.json();
+    if (result.success) {
+      logOut();
+    } else {
+      alert(result.msg);
+    }
+  };
+
   if (!name && !email && !profileURL) return <div className="loader"></div>;
 
   return (
@@ -88,6 +108,13 @@ const Profile = ({ setToken }) => {
           <div className="user-danger-stuff">
             <button onClick={logOut} className="user-log-out" title="Log out! ">
               Log out
+            </button>
+            <button
+              onClick={deleteAccount}
+              className="user-log-out"
+              title="Delete account! "
+            >
+              Delete account
             </button>
           </div>
         </div>
