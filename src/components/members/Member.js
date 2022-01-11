@@ -171,7 +171,7 @@ const Member = ({
         ) : (
           <></>
         )}
-        {isCurrentUserAdmin && myEmail !== email ? (
+        {isCurrentUserAdmin ? (
           <button
             title="Remove User"
             className="add-table-button members-button"
