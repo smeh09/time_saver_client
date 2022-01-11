@@ -16,10 +16,10 @@ const AddMember = () => {
         <div className="add-member-control">
           <div className="add-member-control-heading">Link</div>
           <a
-            href={`https://time-saver-client.vercel.app/table/join/link/${id}`}
+            href={`https://time-saver.vercel.app/table/join/link/${id}`}
             className="add-member-control-link"
           >
-            {`https://time-saver-client.vercel.app/table/join/link/${id}`}
+            {`https://time-saver.vercel.app/table/join/link/${id}`}
           </a>
         </div>
       </div>
