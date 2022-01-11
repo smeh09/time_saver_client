@@ -1,0 +1,41 @@
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 50px;
+}
+
+.home-page-img {
+  width: 600px;
+  margin: 15px;
+}
+
+.heading {
+  margin-bottom: 20px;
+  font-size: 35px;
+  color: #74c1e5;
+}
+
+.text {
+  width: 600px;
+}
+
+.descr {
+  margin-bottom: 30px;
+}
+
+.home-button {
+  padding: 15px 30px;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  background: var(--primary-button-gradient);
+  border: none;
+  border-radius: 16rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.home-button:hover {
+  transform: translate(0, -3px);
+}

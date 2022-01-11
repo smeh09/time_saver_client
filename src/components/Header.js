@@ -16,11 +16,6 @@ export default function Header({ title, token, setToken }) {
         <nav>
           <ul id="nav-list">
             <li className="nav-list-item">
-              <Link className="nav-link" to="/about">
-                About
-              </Link>
-            </li>
-            <li className="nav-list-item">
               <Link className="nav-link" to="/tables">
                 Tables
               </Link>
@@ -47,13 +42,8 @@ export default function Header({ title, token, setToken }) {
       <nav>
         <ul id="nav-list">
           <li className="nav-list-item">
-            <Link className="nav-link" to="/about">
-              About
-            </Link>
-          </li>
-          <li className="nav-list-item">
             <Link className="nav-link" to="/authenticate?type=sign_up">
-              Sign up
+              Register
             </Link>
           </li>
           <li className="nav-list-item">

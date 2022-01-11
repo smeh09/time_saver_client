@@ -109,7 +109,7 @@ export default function Authenticate({ token, setToken }) {
               id={type === "sign_up" ? "selected" : ""}
               to="/authenticate?type=sign_up"
             >
-              Sign up
+              Register
             </Link>
           </div>
         </div>

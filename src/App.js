@@ -12,6 +12,7 @@ import Members from "./components/members/Members";
 import AddMember from "./components/addMember/AddMember";
 import JoinLink from "./components/joinLink/JoinLink";
 import EditProfile from "./components/editProfile/EditProfile";
+import Home from "./components/home/Home";
 import { useState } from "react";
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
       <Router>
         <Header title="Time Table Manager" token={token} setToken={setToken} />
         <Routes>
-          <Route path="/" element={<></>} />
+          <Route path="/" element={<Home />} />
           <Route
             path="/authenticate"
             element={<Authenticate token={token} setToken={setToken} />}
