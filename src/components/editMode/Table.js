@@ -55,9 +55,7 @@ export default function EditTable() {
   const [callSetData, setCallSetData] = useState(false);
 
   const handleSubmit = () => {
-    const confirmation = window.confirm(
-      "Are you sure you want to delete your account?"
-    );
+    const confirmation = window.confirm("Are you sure you want to save");
     if (!confirmation) return;
     setCallSetData(true);
   };
@@ -139,7 +137,7 @@ export default function EditTable() {
 
   const clearTable = async () => {
     const confirmation = window.confirm(
-      "Are you sure you want to delete your account?"
+      "Are you sure you want to clear the table?"
     );
     if (!confirmation) return;
     const res = await fetch(
@@ -161,6 +159,26 @@ export default function EditTable() {
 
     if (result.success) {
       navigate(`/table/${id}`);
+    } else {
+      alert(result.msg);
+    }
+  };
+
+  const deleteTable = async () => {
+    const response = await fetch(
+      `https://time-saver-server.herokuapp.com/api/table/delete/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const result = await response.json();
+    if (result.success) {
+      navigate("/tables");
     } else {
       alert(result.msg);
     }
@@ -193,6 +211,13 @@ export default function EditTable() {
             onClick={clearTable}
           >
             <i className="fa fa-trash-o" aria-hidden="true"></i> Clear
+          </button>
+          <button
+            title="Delete"
+            className="update-btn-edit edit-redirect-btn"
+            onClick={deleteTable}
+          >
+            Delete
           </button>
         </div>
         <div className="table">

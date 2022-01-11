@@ -101,7 +101,7 @@ const Member = ({
 
   const removeUser = () => {
     const confirmation = window.confirm(
-      "Are you sure you want to delete your account?"
+      "Are you sure you want to remove this user?"
     );
     if (!confirmation) return;
     const fetchData = async () => {
