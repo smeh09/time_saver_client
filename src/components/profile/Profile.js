@@ -75,7 +75,7 @@ const Profile = ({ setToken }) => {
               <div className="label">Email</div>
               <div className="data">{email}</div>
 
-              <div className="label">Grade</div>
+              <div className="label">School</div>
               <div className="data">{userSchool}</div>
 
               <div className="label">Class</div>
