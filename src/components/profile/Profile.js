@@ -53,6 +53,11 @@ const Profile = ({ setToken }) => {
   };
 
   const deleteAccount = async () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+    if (!confirmation) return;
+
     const response = await fetch(
       `https://time-saver-server.herokuapp.com/api/user/`,
       {

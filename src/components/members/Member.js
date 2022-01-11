@@ -100,6 +100,10 @@ const Member = ({
   };
 
   const removeUser = () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+    if (!confirmation) return;
     const fetchData = async () => {
       const response = await fetch(
         `https://time-saver-server.herokuapp.com/api/table/remove/${tableId}`,

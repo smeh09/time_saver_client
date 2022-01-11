@@ -55,6 +55,10 @@ export default function EditTable() {
   const [callSetData, setCallSetData] = useState(false);
 
   const handleSubmit = () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+    if (!confirmation) return;
     setCallSetData(true);
   };
 
@@ -134,6 +138,10 @@ export default function EditTable() {
   };
 
   const clearTable = async () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+    if (!confirmation) return;
     const res = await fetch(
       `https://time-saver-server.herokuapp.com/api/table/${id}`,
       {
