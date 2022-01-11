@@ -16,7 +16,7 @@ const Member = ({
 
   const [userClass, setUserClass] = useState("");
   const [userSection, setUserSection] = useState("");
-  const [userSchool, setUserSchool] = useState("");
+  const [userSchool, setUserSchool] = useStatmyEmaile("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -125,6 +125,14 @@ const Member = ({
     fetchData();
   };
 
+  if (
+    myEmail === "" &&
+    userClass === "" &&
+    userSection === "" &&
+    userSchool === "" &&
+    myEmail === ""
+  )
+    return <div className="laoder"></div>;
   return (
     <div className="member">
       <div className="member-name-pfp">
