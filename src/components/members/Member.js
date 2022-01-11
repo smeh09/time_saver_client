@@ -16,7 +16,7 @@ const Member = ({
 
   const [userClass, setUserClass] = useState("");
   const [userSection, setUserSection] = useState("");
-  const [userSchool, setUserSchool] = useStatmyEmaile("");
+  const [userSchool, setUserSchool] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
