@@ -7,11 +7,22 @@ const DayRowHeaderChild = ({ id, tableSampleData, i }) => {
 
     const tableData = [...tableSampleData];
 
+    let startTime = window.prompt("Please enter default start time", "00:00");
+    let endTime = window.prompt("Please enter default end time", "00:00");
+
+    if (!startTime || startTime === "") {
+      startTime = "00:00";
+    }
+
+    if (!endTime || endTime === "") {
+      endTime = "00:00";
+    }
+
     tableData.forEach((dayData) => {
       dayData.data.splice(i, 0, {
         task: "",
         teacher: "",
-        timings: ["00:00", "00:00"],
+        timings: [startTime, endTime],
       });
     });
     await fetchUpdate(id, tableData);
