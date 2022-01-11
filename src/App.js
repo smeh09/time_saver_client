@@ -11,6 +11,7 @@ import JoinTable from "./components/joinTable/JoinTable";
 import Members from "./components/members/Members";
 import AddMember from "./components/addMember/AddMember";
 import JoinLink from "./components/joinLink/JoinLink";
+import EditProfile from "./components/editProfile/EditProfile";
 import { useState } from "react";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             path="/account/profile"
             element={<Profile setToken={setToken} />}
           />
+          <Route path="/account/profile/edit" element={<EditProfile />} />
           <Route path="/tables" element={<Tables />} />
           <Route path="/table/add/type" element={<AddMethod />} />
           <Route path="/table/members/:id" element={<Members />} />

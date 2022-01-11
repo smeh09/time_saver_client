@@ -57,6 +57,16 @@ const Profile = ({ setToken }) => {
   return (
     <div className="profile-outer">
       <div className="profile">
+        <button
+          className="day-row-edit-header-button profile-edit-redirect-btn"
+          title="Edit profile"
+          onClick={() => navigate("/account/profile/edit")}
+        >
+          <i
+            className="fa fa-pencil-square-o fa-edit-button-icon fa-edit-profile-button-icon"
+            aria-hidden="true"
+          ></i>
+        </button>
         <img alt="pfp" src={profileURL} className="profile-img" />
         <div className="profile-data">
           <div className="details">

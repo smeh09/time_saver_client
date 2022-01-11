@@ -23,14 +23,6 @@
   border-radius: 5px;
 }
 
-.profile-edit-redirect-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: 15px;
-}
-
 .user-details-group {
   margin-bottom: 20px;
 }
@@ -86,7 +78,9 @@
   background: rgb(184, 45, 45);
 }
 
-.fa-edit-profile-button-icon {
-  font-size: 25px;
-  text-align: center;
+.edit-profile-input {
+  width: 100%;
+  font-size: 18px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #333150;
 }
