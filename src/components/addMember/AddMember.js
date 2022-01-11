@@ -1,10 +1,42 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./styles/addMember.css";
 
 const AddMember = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/admin/isAdmin/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      const profileData = await response.json();
+      console.log(profileData);
+      if (profileData.success) {
+        if (!profileData.isAdmin) {
+          setIsAdmin(false);
+          navigate(`/table/${id}`);
+        } else {
+          setIsAdmin(true);
+        }
+      }
+    };
+    fetchData();
+    // eslint-disable-next-line
+  }, []);
+
+  if (!isAdmin) return <div className="loader"></div>;
   return (
     <div className="add-member-container">
       <h2 className="add-member-heading">Add a member</h2>

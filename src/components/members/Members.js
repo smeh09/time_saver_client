@@ -84,7 +84,7 @@ const Members = () => {
       <div className="button-container">
         {isCurrentUserAdmin ? (
           <button
-            className="add-table-button"
+            className="edit-redirect-btn update-btn"
             onClick={() => navigate(`/members/add/${id}`)}
             title="Add a member"
           >
@@ -95,14 +95,14 @@ const Members = () => {
         )}
         <button
           title="Leave"
-          className="add-table-button members-button"
+          className="edit-redirect-btn update-btn"
           onClick={leave}
         >
           Leave Table
         </button>
         <button
           title="Leave"
-          className="add-table-button members-button"
+          className="edit-redirect-btn update-btn"
           onClick={() => navigate(`/table/${id}`)}
         >
           Back
