@@ -35,7 +35,6 @@ const Member = ({
       );
       const profileData = await response.json();
       if (profileData.success) {
-        setEmail(profileData.data.email);
         setUserSection(profileData.data.section);
         setUserClass(profileData.data.class);
         setUserSchool(profileData.data.school);
@@ -43,7 +42,26 @@ const Member = ({
         alert(profileData.msg);
       }
     };
+    const fetchData2 = async () => {
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/user/`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+            "x-id": id,
+          },
+        }
+      );
+      const profileData = await response.json();
+      if (profileData.success) {
+        setEmail(profileData.data.email);
+      }
+    };
     fetchData();
+    fetchData2();
     // eslint-disable-next-line
   }, []);
 
@@ -175,7 +193,7 @@ const Member = ({
         ) : (
           <></>
         )}
-        {isCurrentUserAdmin ? (
+        {isCurrentUserAdmin && myEmail !== email ? (
           <button
             title="Remove User"
             className="add-table-button members-button"

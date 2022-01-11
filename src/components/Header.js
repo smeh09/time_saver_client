@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles/header.css";
 
 export default function Header({ title, token, setToken }) {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/user/`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+        }
+      );
+      const profileData = await response.json();
+      if (profileData.success) {
+        setName(profileData.data.name);
+      }
+    };
+    fetchData();
+  });
 
   if (token) {
     const profilePhotoURL = localStorage.getItem("profilePhotoURL");
@@ -20,14 +42,17 @@ export default function Header({ title, token, setToken }) {
                 Tables
               </Link>
             </li>
-            <li className="nav-list-item">
+            <li
+              className="nav-list-item"
+              onClick={() => navigate("/account/profile")}
+            >
               <img
                 style={{ cursor: "pointer" }}
-                onClick={() => navigate("/account/profile")}
                 src={profilePhotoURL}
                 alt="pfp"
                 className="pfp"
               />
+              <div>{name}</div>
             </li>
           </ul>
         </nav>

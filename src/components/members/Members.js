@@ -9,11 +9,12 @@ const Members = () => {
 
   const [members, setMembers] = useState([]);
   const [isCurrentUserAdmin, setIsCurrentUserAdmin] = useState(false);
+  const [name, setName] = useState("");
 
   const leave = () => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://time-saver-server.herokuapp.com/api/table/leave/${id}`,
+        `http://localhost:5000/api/table/leave/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -72,7 +73,27 @@ const Members = () => {
         alert(isAdminData.msg);
       }
     };
+    const fetchData2 = async () => {
+      const response = await fetch(
+        `https://time-saver-server.herokuapp.com/api/table/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      const tableSampleData = await response.json();
+      if (tableSampleData.success) {
+        setName(tableSampleData.name);
+      } else {
+        alert(tableSampleData.msg);
+      }
+    };
     fetchData();
+    fetchData2();
     isAdminFetch();
   }, [navigate, id]);
 
@@ -80,7 +101,7 @@ const Members = () => {
 
   return (
     <div className="members-container">
-      <h2 className="members-heading">Members</h2>
+      <h2 className="members-heading">{name} - Members</h2>
       <div className="button-container">
         {isCurrentUserAdmin ? (
           <button

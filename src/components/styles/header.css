@@ -36,6 +36,7 @@ header {
 .pfp {
   width: 45px;
   height: 45px;
+  margin: auto;
   border-radius: 50%;
   display: flex;
   justify-content: center;
