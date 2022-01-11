@@ -22,13 +22,14 @@ const Member = ({
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://time-saver-server.herokuapp.com/api/user/`,
+        `https://time-saver-server.herokuapp.com/api/user/${tableId}`,
         {
           method: "GET",
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             "x-auth-token": localStorage.getItem("token"),
+            "x-id": id,
           },
         }
       );
@@ -43,7 +44,8 @@ const Member = ({
       }
     };
     fetchData();
-  }, [tableId]);
+    // eslint-disable-next-line
+  }, []);
 
   const makeAdmin = () => {
     const fetchData = async () => {
