@@ -22,7 +22,6 @@ const AddMember = () => {
         }
       );
       const profileData = await response.json();
-      console.log(profileData);
       if (profileData.success) {
         if (!profileData.isAdmin) {
           setIsAdmin(false);
