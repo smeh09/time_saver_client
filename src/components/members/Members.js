@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import PopUpModal from "../popup/PopupModal";
 import "./styles/members.css";
 import Member from "./Member";
 
@@ -10,6 +11,8 @@ const Members = () => {
   const [members, setMembers] = useState([]);
   const [isCurrentUserAdmin, setIsCurrentUserAdmin] = useState(false);
   const [name, setName] = useState("");
+
+  const [popUpData, setPopUpData] = useState(null);
 
   const leave = () => {
     const fetchData = async () => {
@@ -28,7 +31,11 @@ const Members = () => {
       if (result.success) {
         navigate("/tables");
       } else {
-        alert(result.msg);
+        setPopUpData({
+          title: "Error",
+          message: result.msg,
+          onConfirm: () => setPopUpData(null),
+        });
       }
     };
     fetchData();
@@ -51,7 +58,11 @@ const Members = () => {
       if (tableSampleData.success) {
         setMembers(tableSampleData.members);
       } else {
-        alert(tableSampleData.msg);
+        setPopUpData({
+          title: "Error",
+          message: tableSampleData.msg,
+          onConfirm: () => setPopUpData(null),
+        });
       }
     };
     const isAdminFetch = async () => {
@@ -70,7 +81,11 @@ const Members = () => {
       if (isAdminData.success) {
         setIsCurrentUserAdmin(isAdminData.isAdmin);
       } else {
-        alert(isAdminData.msg);
+        setPopUpData({
+          title: "Error",
+          message: isAdminData.msg,
+          onConfirm: () => setPopUpData(null),
+        });
       }
     };
     const fetchData2 = async () => {
@@ -89,7 +104,11 @@ const Members = () => {
       if (tableSampleData.success) {
         setName(tableSampleData.name);
       } else {
-        alert(tableSampleData.msg);
+        setPopUpData({
+          title: "Error",
+          message: tableSampleData.msg,
+          onConfirm: () => setPopUpData(null),
+        });
       }
     };
     fetchData();
@@ -100,52 +119,63 @@ const Members = () => {
   if (members.length === 0) return <div className="loader"></div>;
 
   return (
-    <div className="members-container">
-      <h2 className="members-heading">{name} - Members</h2>
-      <div className="button-container">
-        {isCurrentUserAdmin ? (
+    <>
+      {popUpData ? (
+        <PopUpModal
+          title={popUpData.title}
+          message={popUpData.message}
+          onConfirm={popUpData.onConfirm}
+        />
+      ) : (
+        <></>
+      )}
+      <div className="members-container">
+        <h2 className="members-heading">{name} - Members</h2>
+        <div className="button-container">
+          {isCurrentUserAdmin ? (
+            <button
+              className="edit-redirect-btn update-btn"
+              onClick={() => navigate(`/members/add/${id}`)}
+              title="Add a member"
+            >
+              Add a member
+            </button>
+          ) : (
+            <></>
+          )}
           <button
+            title="Leave"
             className="edit-redirect-btn update-btn"
-            onClick={() => navigate(`/members/add/${id}`)}
-            title="Add a member"
+            onClick={leave}
           >
-            Add a member
+            Leave Table
           </button>
-        ) : (
-          <></>
-        )}
-        <button
-          title="Leave"
-          className="edit-redirect-btn update-btn"
-          onClick={leave}
-        >
-          Leave Table
-        </button>
-        <button
-          title="Leave"
-          className="edit-redirect-btn update-btn"
-          onClick={() => navigate(`/table/${id}`)}
-        >
-          Back
-        </button>
+          <button
+            title="Leave"
+            className="edit-redirect-btn update-btn"
+            onClick={() => navigate(`/table/${id}`)}
+          >
+            Back
+          </button>
+        </div>
+        <div className="members">
+          {members.map((member, i) => {
+            return (
+              <Member
+                key={i}
+                name={member.name}
+                email={member.email}
+                profilePhoto={member.profilePhoto}
+                isUserAdmin={member.isUserAdmin}
+                isCurrentUserAdmin={isCurrentUserAdmin}
+                id={member.id}
+                tableId={id}
+              />
+            );
+          })}
+        </div>
       </div>
-      <div className="members">
-        {members.map((member, i) => {
-          return (
-            <Member
-              key={i}
-              name={member.name}
-              email={member.email}
-              profilePhoto={member.profilePhoto}
-              isUserAdmin={member.isUserAdmin}
-              isCurrentUserAdmin={isCurrentUserAdmin}
-              id={member.id}
-              tableId={id}
-            />
-          );
-        })}
-      </div>
-    </div>
+    </>
   );
 };
 

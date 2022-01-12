@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import PopUpModal from "../popup/PopupModal";
 
 const JoinLink = () => {
   const [tablesJoined, setTablesJoined] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [popUpData, setPopUpData] = useState(null);
 
   useEffect(() => {
     const fetchUpdate = async () => {
@@ -23,7 +26,11 @@ const JoinLink = () => {
       if (result.success) {
         navigate(`/table/${result.result._id}`);
       } else {
-        alert(result.msg);
+        setPopUpData({
+          title: "Error",
+          message: result.msg,
+          onConfirm: () => setPopUpData(null),
+        });
       }
     };
 
@@ -55,7 +62,20 @@ const JoinLink = () => {
     // eslint-disable-next-line
   }, []);
 
-  return <div className="loader"></div>;
+  return (
+    <>
+      {popUpData ? (
+        <PopUpModal
+          title={popUpData.title}
+          message={popUpData.message}
+          onConfirm={popUpData.onConfirm}
+        />
+      ) : (
+        <></>
+      )}
+      <div className="loader"></div>
+    </>
+  );
 };
 
 export default JoinLink;

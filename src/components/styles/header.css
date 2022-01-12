@@ -43,3 +43,12 @@ header {
   align-items: center;
   border: 3px solid rgb(59, 59, 59);
 }
+
+.account-flex {
+  display: flex;
+  align-items: center;
+}
+
+.header-pfp {
+  margin-right: 5px;
+}

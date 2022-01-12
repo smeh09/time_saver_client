@@ -43,15 +43,11 @@ export default function Header({ title, token, setToken }) {
               </Link>
             </li>
             <li
-              className="nav-list-item"
+              className="nav-list-item account-flex"
               onClick={() => navigate("/account/profile")}
+              style={{ cursor: "pointer" }}
             >
-              <img
-                style={{ cursor: "pointer" }}
-                src={profilePhotoURL}
-                alt="pfp"
-                className="pfp"
-              />
+              <img src={profilePhotoURL} alt="pfp" className="pfp header-pfp" />
               <div>{name}</div>
             </li>
           </ul>

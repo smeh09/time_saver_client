@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import PopUpModal from "./popup/PopupModal";
 import "./styles/table.css";
 
 const days = [
@@ -41,6 +42,8 @@ export default function Table() {
   const [name, setName] = useState("");
   const [isAdmin, setIsAdmin] = useState("");
 
+  const [popUpData, setPopUpData] = useState(null);
+
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -64,7 +67,11 @@ export default function Table() {
         setName(tableSampleData.name);
         setIsAdmin(tableSampleData.isAdmin);
       } else {
-        alert(tableSampleData.msg);
+        setPopUpData({
+          title: "Error",
+          message: tableSampleData.msg,
+          onConfirm: () => setPopUpData(null),
+        });
       }
     };
     fetchData();
@@ -74,74 +81,88 @@ export default function Table() {
     return <div className="loader"></div>;
   } else {
     return (
-      <div className="table-outer">
-        <h2 className="table-heading-name">{name}</h2>
-        <div className="buttons">
-          {isAdmin ? (
+      <>
+        {popUpData ? (
+          <PopUpModal
+            title={popUpData.title}
+            message={popUpData.message}
+            onConfirm={popUpData.onConfirm}
+          />
+        ) : (
+          <></>
+        )}
+        <div className="table-outer">
+          <h2 className="table-heading-name">{name}</h2>
+          <div className="buttons">
+            {isAdmin ? (
+              <button
+                title="Edit"
+                onClick={() => navigate(`/table/edit/${id}`)}
+                className="edit-redirect-btn update-btn"
+              >
+                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>{" "}
+                Edit
+              </button>
+            ) : (
+              ""
+            )}
             <button
-              title="Edit"
-              onClick={() => navigate(`/table/edit/${id}`)}
-              className="edit-redirect-btn update-btn"
+              title="Refresh"
+              className="update-btn-edit"
+              onClick={() => window.location.reload()}
             >
-              <i className="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+              <i className="fa fa-refresh" aria-hidden="true"></i> Refresh
             </button>
-          ) : (
-            ""
-          )}
-          <button
-            title="Refresh"
-            className="update-btn-edit"
-            onClick={() => window.location.reload()}
-          >
-            <i className="fa fa-refresh" aria-hidden="true"></i> Refresh
-          </button>
-          <button
-            title="Members"
-            className="update-btn-edit"
-            onClick={() => navigate(`/table/members/${id}`)}
-          >
-            Members
-          </button>
-        </div>
-        <div className="table">
-          {tableSampleData.map((dayData, i) => {
-            return (
-              <div className="day-row" key={i}>
-                <div className="day box">{dayData.day.toUpperCase()}</div>
-                <div className="table-row">
-                  {dayData.data.map((task, j) => {
-                    return (
-                      <div
-                        key={j}
-                        className="table-task box"
-                        id={
-                          isTaskNow(
-                            dayData.day,
-                            task.timings[0],
-                            task.timings[1]
-                          )
-                            ? "selected-box"
-                            : ""
-                        }
-                      >
-                        <div className="table-task-time">
-                          {task.timings.map((time, i) =>
-                            i === task.timings.length - 1
-                              ? `${time}`
-                              : `${time} - `
-                          )}
+            <button
+              title="Members"
+              className="update-btn-edit"
+              onClick={() => navigate(`/table/members/${id}`)}
+            >
+              Members
+            </button>
+          </div>
+          <div className="table">
+            {tableSampleData.map((dayData, i) => {
+              return (
+                <div className="day-row" key={i}>
+                  <div className="day box">{dayData.day.toUpperCase()}</div>
+                  <div className="table-row">
+                    {dayData.data.map((task, j) => {
+                      return (
+                        <div
+                          key={j}
+                          className="table-task box"
+                          id={
+                            isTaskNow(
+                              dayData.day,
+                              task.timings[0],
+                              task.timings[1]
+                            )
+                              ? "selected-box"
+                              : ""
+                          }
+                        >
+                          <div className="table-task-time">
+                            {task.timings.map((time, i) =>
+                              i === task.timings.length - 1
+                                ? `${time}`
+                                : `${time} - `
+                            )}
+                          </div>
+                          <div className="table-task-name">{task.task}</div>
+                          <div className="table-task-teacher">
+                            {task.teacher}
+                          </div>
                         </div>
-                        <div className="table-task-name">{task.task}</div>
-                        <div className="table-task-teacher">{task.teacher}</div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

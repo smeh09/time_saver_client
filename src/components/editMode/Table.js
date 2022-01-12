@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import DayRow from "./DayRow";
 import DayRowHeader from "./DayRowHeader";
 import genStartData from "../../modules/startData";
+import PopUpModal from "../popup/PopupModal";
 import "./styles/table.css";
 
 const days = [
@@ -19,6 +20,9 @@ export default function EditTable() {
   const [tableSampleData, setTableSampleData] = useState([]);
 
   const [name, setName] = useState("");
+  const [popUpData, setPopUpData] = useState(null);
+  const [popUpData2, setPopUpData2] = useState(null);
+  const [alertData, setAlertData] = useState(null);
 
   const navigate = useNavigate();
 
@@ -45,7 +49,10 @@ export default function EditTable() {
           navigate("/tables");
         }
       } else {
-        alert(tableSampleData.msg);
+        setAlertData({
+          title: "Error",
+          message: tableSampleData.msg,
+        });
       }
     };
     fetchData();
@@ -55,9 +62,17 @@ export default function EditTable() {
   const [callSetData, setCallSetData] = useState(false);
 
   const handleSubmit = () => {
-    const confirmation = window.confirm("Are you sure you want to save");
-    if (!confirmation) return;
-    setCallSetData(true);
+    setPopUpData({
+      title: "Confirm",
+      message: "Are you sure, you want to save changes?",
+      onConfirm: () => {
+        setCallSetData(true);
+        setPopUpData(null);
+      },
+      onCancel: () => {
+        setPopUpData(null);
+      },
+    });
   };
 
   const getTotalObjs = () => {
@@ -117,10 +132,16 @@ export default function EditTable() {
         );
         const result = await res.json();
         if (result.success) {
-          alert("Saved changes! ");
+          setAlertData({
+            title: "Success",
+            message: "Successfully saved changes! ",
+          });
           setTableSampleData(result.result.data);
         } else {
-          alert(result.msg);
+          setAlertData({
+            title: "Error",
+            message: result.msg,
+          });
         }
       };
       fetchUpdate();
@@ -136,120 +157,174 @@ export default function EditTable() {
   };
 
   const clearTable = async () => {
-    const confirmation = window.confirm(
-      "Are you sure you want to clear the table?"
-    );
-    if (!confirmation) return;
-    const res = await fetch(
-      `https://time-saver-server.herokuapp.com/api/table/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          data: genStartData(getCells()),
-        }),
-      }
-    );
+    setPopUpData2({
+      title: "Confirm",
+      message: "Are you sure, you want to clear this table?",
+      onConfirm: async () => {
+        setPopUpData2(null);
 
-    const result = await res.json();
+        const res = await fetch(
+          `https://time-saver-server.herokuapp.com/api/table/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+              "x-auth-token": localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+              data: genStartData(getCells()),
+            }),
+          }
+        );
 
-    if (result.success) {
-      navigate(`/table/${id}`);
-    } else {
-      alert(result.msg);
-    }
+        const result = await res.json();
+
+        if (result.success) {
+          navigate(`/table/${id}`);
+        } else {
+          setAlertData({
+            title: "Error",
+            message: result.msg,
+          });
+        }
+      },
+      onCancel: () => {
+        setPopUpData2(null);
+      },
+    });
   };
 
   const deleteTable = async () => {
-    const response = await fetch(
-      `https://time-saver-server.herokuapp.com/api/table/delete/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      }
-    );
-    const result = await response.json();
-    if (result.success) {
-      navigate("/tables");
-    } else {
-      alert(result.msg);
-    }
+    setPopUpData({
+      title: "Confirm",
+      message: "Are you sure, you want to delete this table?",
+      onConfirm: async () => {
+        const response = await fetch(
+          `https://time-saver-server.herokuapp.com/api/table/delete/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+              "x-auth-token": localStorage.getItem("token"),
+            },
+          }
+        );
+        const result = await response.json();
+        if (result.success) {
+          navigate("/tables");
+        } else {
+          setAlertData({
+            title: "Error",
+            message: result.msg,
+          });
+        }
+        setPopUpData(null);
+      },
+      onCancel: () => {
+        setPopUpData(null);
+      },
+    });
   };
 
   if (!tableSampleData || tableSampleData === []) {
     return <div className="loader"></div>;
   } else {
     return (
-      <div className="table-outer">
-        <h2 className="table-heading-name">{name}</h2>
-        <div className="buttons">
-          <button
-            className="update-btn-edit"
-            title="Save Table"
-            onClick={handleSubmit}
-          >
-            <i className="fa fa-floppy-o" aria-hidden="true"></i> Save
-          </button>
-          <button
-            className="update-btn-edit update-btn-back"
-            title="Save Table"
-            onClick={() => navigate(`/table/${id}`)}
-          >
-            <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
-          </button>
-          <button
-            title="Clear"
-            className="update-btn-edit edit-redirect-btn"
-            onClick={clearTable}
-          >
-            <i className="fa fa-trash-o" aria-hidden="true"></i> Clear
-          </button>
-          <button
-            title="Delete"
-            className="update-btn-edit edit-redirect-btn"
-            onClick={deleteTable}
-          >
-            Delete
-          </button>
+      <>
+        {popUpData ? (
+          <PopUpModal
+            title={popUpData.title}
+            message={popUpData.message}
+            onConfirm={popUpData.onConfirm}
+            onCancel={popUpData.onCancel}
+          />
+        ) : (
+          <></>
+        )}
+        {popUpData2 ? (
+          <PopUpModal
+            title={popUpData2.title}
+            message={popUpData2.message}
+            onConfirm={popUpData2.onConfirm}
+            onCancel={popUpData2.onCancel}
+          />
+        ) : (
+          <></>
+        )}
+        {alertData ? (
+          <PopUpModal
+            title={alertData.title}
+            message={alertData.message}
+            onConfirm={() => setAlertData(null)}
+          />
+        ) : (
+          <></>
+        )}
+        <div className="table-outer">
+          <h2 className="table-heading-name">{name}</h2>
+          <div className="buttons">
+            <button
+              className="update-btn-edit"
+              title="Save Table"
+              onClick={handleSubmit}
+            >
+              <i className="fa fa-floppy-o" aria-hidden="true"></i> Save
+            </button>
+            <button
+              className="update-btn-edit update-btn-back"
+              title="Save Table"
+              onClick={() => navigate(`/table/${id}`)}
+            >
+              <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
+            </button>
+            <button
+              title="Clear"
+              className="update-btn-edit edit-redirect-btn"
+              onClick={clearTable}
+            >
+              <i className="fa fa-trash-o" aria-hidden="true"></i> Clear
+            </button>
+            <button
+              title="Delete"
+              className="update-btn-edit edit-redirect-btn"
+              onClick={deleteTable}
+            >
+              Delete
+            </button>
+          </div>
+          <div className="table">
+            {tableSampleData.map((dayData, i) => {
+              return (
+                <div key={i}>
+                  {i === 0 ? (
+                    <div className="buttons-setting-header">
+                      <DayRowHeader
+                        setTableSampleData={setTableSampleData}
+                        id={id}
+                        tableSampleData={tableSampleData}
+                        length={dayData.data.length}
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  <DayRow
+                    setTableSampleData={setTableSampleData}
+                    tableSampleData={tableSampleData}
+                    i={i}
+                    dayData={dayData}
+                    callSetData={callSetData}
+                    setData={setData}
+                    setCallSetData={setCallSetData}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="table">
-          {tableSampleData.map((dayData, i) => {
-            return (
-              <div key={i}>
-                {i === 0 ? (
-                  <div className="buttons-setting-header">
-                    <DayRowHeader
-                      setTableSampleData={setTableSampleData}
-                      id={id}
-                      tableSampleData={tableSampleData}
-                      length={dayData.data.length}
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-                <DayRow
-                  setTableSampleData={setTableSampleData}
-                  tableSampleData={tableSampleData}
-                  i={i}
-                  dayData={dayData}
-                  callSetData={callSetData}
-                  setData={setData}
-                  setCallSetData={setCallSetData}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      </>
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PopUpModal from "../popup/PopupModal";
 import "./styles/editProfile.css";
 
 const EditProfile = ({ setToken }) => {
@@ -9,6 +10,8 @@ const EditProfile = ({ setToken }) => {
   const [userClass, setUserClass] = useState("");
   const [userSection, setUserSection] = useState("");
   const [userSchool, setUserSchool] = useState("");
+
+  const [popUpData, setPopUpData] = useState(null);
 
   const token = localStorage.getItem("token");
 
@@ -37,7 +40,11 @@ const EditProfile = ({ setToken }) => {
         setName(false);
         setEmail(false);
         setProfileURL(false);
-        alert(profileData.msg);
+        setPopUpData({
+          title: "Error",
+          message: profileData.msg,
+          onConfirm: () => setPopUpData(null),
+        });
       }
     };
     fetchData();
@@ -68,73 +75,88 @@ const EditProfile = ({ setToken }) => {
     if (profileData.success) {
       navigate("/account/profile");
     } else {
-      alert(profileData.msg);
+      setPopUpData({
+        title: "Error",
+        message: profileData.msg,
+        onConfirm: () => setPopUpData(null),
+      });
     }
   };
 
   if (!name && !email && !profileURL) return <div className="loader"></div>;
 
   return (
-    <div className="profile-outer">
-      <div className="profile">
-        <img alt="pfp" src={profileURL} className="profile-img" />
-        <div className="profile-data">
-          <div className="details">
-            <input
-              className="label data data-name edit-profile-input"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-            />
-            <div className="user-details-group">
-              <div className="label">Email</div>
+    <>
+      {popUpData ? (
+        <PopUpModal
+          title={popUpData.title}
+          message={popUpData.message}
+          onConfirm={popUpData.onConfirm}
+        />
+      ) : (
+        <></>
+      )}
+      <div className="profile-outer">
+        <div className="profile">
+          <img alt="pfp" src={profileURL} className="profile-img" />
+          <div className="profile-data">
+            <div className="details">
               <input
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                className="label edit-profile-input"
-                placeholder="Email"
-                value={email}
+                className="label data data-name edit-profile-input"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
               />
-              <div className="data"></div>
+              <div className="user-details-group">
+                <div className="label">Email</div>
+                <input
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  className="label edit-profile-input"
+                  placeholder="Email"
+                  value={email}
+                />
+                <div className="data"></div>
 
-              <div className="label">School</div>
-              <input
-                onChange={(e) => setUserSchool(e.target.value)}
-                type="string"
-                className="label edit-profile-input"
-                placeholder="School"
-                value={userSchool}
-              />
-              <div className="data"></div>
+                <div className="label">School</div>
+                <input
+                  onChange={(e) => setUserSchool(e.target.value)}
+                  type="string"
+                  className="label edit-profile-input"
+                  placeholder="School"
+                  value={userSchool}
+                />
+                <div className="data"></div>
 
-              <div className="label">Class</div>
-              <input
-                onChange={(e) => setUserClass(e.target.value)}
-                type="email"
-                className="label edit-profile-input"
-                placeholder="Class"
-                value={userClass}
-              />
-              <div className="data"></div>
+                <div className="label">Class</div>
+                <input
+                  onChange={(e) => setUserClass(e.target.value)}
+                  type="email"
+                  className="label edit-profile-input"
+                  placeholder="Class"
+                  value={userClass}
+                />
+                <div className="data"></div>
 
-              <div className="label">Section</div>
-              <input
-                type="email"
-                onChange={(e) => setUserSection(e.target.value)}
-                className="label edit-profile-input"
-                placeholder="Section"
-                value={userSection}
-              />
-              <div className="data"></div>
+                <div className="label">Section</div>
+                <input
+                  type="email"
+                  onChange={(e) => setUserSection(e.target.value)}
+                  className="label edit-profile-input"
+                  placeholder="Section"
+                  value={userSection}
+                />
+                <div className="data"></div>
+              </div>
             </div>
-          </div>
-          <div className="user-danger-stuff">
-            <button onClick={save} className="user-log-out" title="Log out! ">
-              Save
-            </button>
+            <div className="user-danger-stuff">
+              <button onClick={save} className="user-log-out" title="Log out! ">
+                Save
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
