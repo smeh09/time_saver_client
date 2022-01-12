@@ -50,7 +50,12 @@ export default function Authenticate({ token, setToken }) {
       setPopUpData({
         title: "Error",
         message: result.msg,
-        onConfirm: () => setPopUpData(null),
+        onConfirm: () => {
+          setPopUpData(null);
+          setToken(false);
+          localStorage.setItem("token", null);
+          localStorage.setItem("profilePhotoURL", null);
+        },
       });
       return false;
     }
@@ -99,16 +104,6 @@ export default function Authenticate({ token, setToken }) {
 
   return (
     <>
-      {popUpData ? (
-        <PopUpModal
-          title={popUpData.title}
-          message={popUpData.message}
-          onConfirm={popUpData.onConfirm}
-          onCancel={popUpData.onCancel}
-        />
-      ) : (
-        <></>
-      )}
       <div id="authentication-modal-outer">
         <div id="authentication-modal-inner">
           <div id="authentication-heading-links">

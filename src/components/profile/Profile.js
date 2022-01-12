@@ -82,7 +82,12 @@ const Profile = ({ setToken }) => {
           setDeleteData({
             title: "Error",
             message: result.msg,
-            onConfirm: () => setDeleteData(null),
+            onConfirm: () => {
+              setPopUpData(null);
+              setToken(false);
+              localStorage.setItem("token", null);
+              localStorage.setItem("profilePhotoURL", null);
+            },
           });
         }
       },
@@ -92,7 +97,22 @@ const Profile = ({ setToken }) => {
     });
   };
 
-  if (!name && !email && !profileURL) return <div className="loader"></div>;
+  if (!name && !email && !profileURL)
+    return (
+      <>
+        {deleteData ? (
+          <PopUpModal
+            title={deleteData.title}
+            message={deleteData.message}
+            onConfirm={deleteData.onConfirm}
+            onCancel={deleteData.onCancel}
+          />
+        ) : (
+          <></>
+        )}
+        <div className="loader"></div>
+      </>
+    );
 
   return (
     <>
