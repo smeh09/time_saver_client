@@ -42,12 +42,19 @@ const Profile = ({ setToken }) => {
         setDeleteData({
           title: "Error",
           message: profileData.msg,
-          onConfirm: () => setDeleteData(null),
+          onConfirm: () => {
+            setDeleteData(null);
+            setToken(false);
+            localStorage.setItem("token", null);
+            localStorage.setItem("profilePhotoURL", null);
+            navigate("/");
+          },
         });
       }
     };
     fetchData();
-  }, [token]);
+    // eslint-disable-next-line
+  }, []);
 
   const navigate = useNavigate();
 
@@ -83,10 +90,7 @@ const Profile = ({ setToken }) => {
             title: "Error",
             message: result.msg,
             onConfirm: () => {
-              setPopUpData(null);
-              setToken(false);
-              localStorage.setItem("token", null);
-              localStorage.setItem("profilePhotoURL", null);
+              setDeleteData(null);
             },
           });
         }
