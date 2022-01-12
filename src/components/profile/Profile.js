@@ -14,6 +14,8 @@ const Profile = ({ setToken }) => {
 
   const token = localStorage.getItem("token");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -55,8 +57,6 @@ const Profile = ({ setToken }) => {
     fetchData();
     // eslint-disable-next-line
   }, []);
-
-  const navigate = useNavigate();
 
   const logOut = () => {
     setToken(false);
