@@ -14,7 +14,7 @@
   top: 35vh;
   left: 35%;
   width: 30%;
-  height: 25%;
+  height: 150px;
   z-index: 100;
   overflow: hidden;
   background: #201f38;
@@ -32,14 +32,13 @@
 
 .title {
   width: 100%;
-  margin-bottom: 20px;
   padding: 10px 20px;
   padding-top: 7px;
   background: #1d1b32;
 }
 
 .modal-msg {
-  padding: 20px;
+  padding: 10px 20px;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -47,7 +46,7 @@
 .modal-buttons {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 0 20px;
 }
 
 .modal-button {
