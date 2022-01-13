@@ -6,7 +6,9 @@ const PopUpModal = (props) => {
     <div className="popup-modal">
       <div className="backdrop"></div>
       <div className="modal">
-        <div className="modal-title">{props.title}</div>
+        <div className="title">
+          <div className="modal-title">{props.title}</div>
+        </div>
         <div className="modal-msg">{props.message}</div>
         <div className="modal-buttons">
           <button className="modal-button" onClick={props.onConfirm}>

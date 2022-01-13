@@ -17,7 +17,7 @@ const Members = () => {
   const leave = () => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://time-saver-server.herokuapp.com/api/table/leave/${id}`,
+        `http://localhost:5000/api/table/leave/${id}`,
         {
           method: "DELETE",
           headers: {
