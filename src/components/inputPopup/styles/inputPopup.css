@@ -1,0 +1,28 @@
+.input-modal {
+  height: 300px !important;
+  top: 30vh !important;
+}
+
+.input-msg {
+  margin-top: 10px;
+  margin-bottom: 0 !important;
+}
+
+.modal-input-control {
+  margin: 15px;
+  margin-bottom: 20px;
+}
+
+.modal-input {
+  width: 90%;
+}
+
+.modal-input-label {
+  margin-bottom: 10px;
+}
+
+.input-modal-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

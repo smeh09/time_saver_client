@@ -71,3 +71,24 @@
 .modal-button:hover {
   transform: translate(0, -5px);
 }
+
+@media screen and (max-width: 1100px) {
+  .modal {
+    left: 30%;
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .modal {
+    left: 25%;
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .modal {
+    left: 15%;
+    width: 70%;
+  }
+}

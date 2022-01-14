@@ -12,7 +12,7 @@ const PopUpModal = (props) => {
         <div className="modal-msg">{props.message}</div>
         <div className="modal-buttons">
           <button className="modal-button" onClick={props.onConfirm}>
-            Ok
+            OK
           </button>
           {props.onCancel ? (
             <button className="modal-button" onClick={props.onCancel}>

@@ -4,6 +4,7 @@ import DayRow from "./DayRow";
 import DayRowHeader from "./DayRowHeader";
 import genStartData from "../../modules/startData";
 import PopUpModal from "../popup/PopupModal";
+import InputPopup from "../inputPopup/InputPopup";
 import "./styles/table.css";
 
 const days = [
@@ -23,6 +24,7 @@ export default function EditTable() {
   const [popUpData, setPopUpData] = useState(null);
   const [popUpData2, setPopUpData2] = useState(null);
   const [alertData, setAlertData] = useState(null);
+  const [popUpData3, setPopUpData3] = useState(null);
 
   const navigate = useNavigate();
 
@@ -228,6 +230,46 @@ export default function EditTable() {
     });
   };
 
+  const editName = () => {
+    setPopUpData3({
+      title: "Edit table name",
+      message: "Please enter the new name of the table",
+      inputLabel: "Name of the table",
+      inputPlaceHolder: "Please enter the name of the tabke",
+      defaultInput1: name,
+      onConfirm: async (inputData) => {
+        console.log(inputData);
+        const response = await fetch(
+          `https://time-saver-server.herokuapp.com/api/table/name/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+              "x-auth-token": localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+              name: inputData,
+            }),
+          }
+        );
+        const result = await response.json();
+        if (result.success) {
+          setName(inputData);
+        } else {
+          setAlertData({
+            title: "Error",
+            message: result.msg,
+          });
+        }
+        setPopUpData3(null);
+      },
+      onCancel: () => {
+        setPopUpData3(null);
+      },
+    });
+  };
+
   if (!tableSampleData || tableSampleData === []) {
     return <div className="loader"></div>;
   } else {
@@ -262,8 +304,31 @@ export default function EditTable() {
         ) : (
           <></>
         )}
+        {popUpData3 ? (
+          <InputPopup
+            title={popUpData3.title}
+            message={popUpData3.message}
+            inputLabel={popUpData3.inputLabel}
+            inputPlaceHolder={popUpData3.inputPlaceHolder}
+            defaultInput1={popUpData3.defaultInput1}
+            onConfirm={popUpData3.onConfirm}
+            onCancel={popUpData3.onCancel}
+          />
+        ) : (
+          <></>
+        )}
         <div className="table-outer">
-          <h2 className="table-heading-name">{name}</h2>
+          <div className="table-name-edit-mode">
+            <h2 className="table-heading-name table-edit-heading-name">
+              {name}
+              <i
+                className="fa fa-pencil-square-o edit-table-name"
+                aria-hidden="true"
+                title="Edit Table"
+                onClick={editName}
+              ></i>{" "}
+            </h2>
+          </div>
           <div className="buttons">
             <button
               className="update-btn-edit"
@@ -281,7 +346,7 @@ export default function EditTable() {
             </button>
             <button
               title="Clear"
-              className="update-btn-edit edit-redirect-btn"
+              className="update-btn-edit"
               onClick={clearTable}
             >
               <i className="fa fa-trash-o" aria-hidden="true"></i> Clear

@@ -52,3 +52,18 @@ header {
 .header-pfp {
   margin-right: 5px;
 }
+
+@media screen and (max-width: 750px) {
+  header {
+    flex-direction: column;
+  }
+  #nav-list {
+    flex-direction: column;
+  }
+  .nav-list-item {
+    margin: 15px !important;
+  }
+  #title {
+    margin-bottom: 20px;
+  }
+}

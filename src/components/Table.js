@@ -98,7 +98,7 @@ export default function Table() {
               <button
                 title="Edit"
                 onClick={() => navigate(`/table/edit/${id}`)}
-                className="edit-redirect-btn update-btn"
+                className="update-btn-edit"
               >
                 <i className="fa fa-pencil-square-o" aria-hidden="true"></i>{" "}
                 Edit
