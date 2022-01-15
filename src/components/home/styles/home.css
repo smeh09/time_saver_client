@@ -40,3 +40,38 @@
 .home-button:hover {
   transform: translate(0, -3px);
 }
+
+@media screen and (max-width: 1400px) {
+  .home-page-img {
+    width: 350px;
+  }
+  .text {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .heading {
+    font-size: 23px;
+  }
+  .text {
+    width: 375px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .home {
+    flex-direction: column !important;
+    justify-content: space-around;
+    padding: 15px !important;
+  }
+  .text {
+    width: 100%;
+  }
+  .home-page-img {
+    width: 300px;
+  }
+  .heading {
+    text-align: center;
+  }
+}
