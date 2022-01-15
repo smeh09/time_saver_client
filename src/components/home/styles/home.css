@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 100px 50px;
+  min-height: calc(100vh - 264px);
 }
 
 .home-page-img {

@@ -1,3 +1,7 @@
+#authentication-modal-outer {
+  min-height: calc(100vh - 164px);
+}
+
 #authentication-modal-inner {
   width: 370px;
   margin: 100px auto;
@@ -11,7 +15,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 35px;
-  border-bottom: 3px solid #1B1A28;
+  border-bottom: 3px solid #1b1a28;
 }
 
 .authentication-link {
@@ -37,7 +41,7 @@
 .authenticate-form-control-input {
   outline: none;
   border: none;
-  border-bottom: 3px solid #1B1A28;
+  border-bottom: 3px solid #1b1a28;
   width: 270px;
   font-size: 15px;
   padding: 7px 15px;

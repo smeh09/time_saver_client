@@ -13,6 +13,7 @@ import AddMember from "./components/addMember/AddMember";
 import JoinLink from "./components/joinLink/JoinLink";
 import EditProfile from "./components/editProfile/EditProfile";
 import Home from "./components/home/Home";
+import Footer from "./components/Footer/Footer";
 import { useState } from "react";
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="/members/add/:id" element={<AddMember />} />
           <Route path="/table/join/link/:id" element={<JoinLink />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );
