@@ -28,7 +28,10 @@ export default function Authenticate({ token, setToken }) {
 
   const [popUpData, setPopUpData] = useState(null);
 
+  const [isLoader, setIsLoader] = useState(false);
+
   const fetchUpdate = async (url, data) => {
+    setIsLoader(true);
     const res = await fetch(url, {
       method: "POST",
       headers: {
@@ -44,7 +47,7 @@ export default function Authenticate({ token, setToken }) {
       localStorage.setItem("token", result.token);
       localStorage.setItem("profilePhotoURL", result.profilePhotoURL);
       setToken(result.token);
-
+      setIsLoader(false);
       return true;
     } else {
       setPopUpData({
@@ -101,6 +104,10 @@ export default function Authenticate({ token, setToken }) {
     e.preventDefault();
     changeDirections();
   };
+
+  if (isLoader) {
+    return <div className="loader"></div>;
+  }
 
   return (
     <>
