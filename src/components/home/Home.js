@@ -6,10 +6,6 @@ import "./styles/home.css";
 const Home = () => {
   const navigate = useNavigate();
 
-  if (localStorage.getItem("token")) {
-    navigate("/tables");
-  }
-
   return (
     <div className="home">
       <div className="text">
@@ -21,10 +17,7 @@ const Home = () => {
           share the tables, with people, which is extremely helpful in
           organisations such as schools!
         </div>
-        <button
-          onClick={() => navigate("/authenticate?type=sign_up")}
-          className="home-button"
-        >
+        <button onClick={() => navigate("/tables")} className="home-button">
           Get Started now!{" "}
         </button>
       </div>

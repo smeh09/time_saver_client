@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PopUpModal from "../popup/PopupModal";
+import protectRoutes from "../../modules/protectRoutes";
 
 const JoinTable = () => {
   const [code, setCode] = useState("");
   const navigate = useNavigate();
 
   const [popUpData, setPopUpData] = useState(null);
+
+  useEffect(() => {
+    const isNotAuthenticated = protectRoutes();
+    if (isNotAuthenticated) {
+      navigate("/authenticate?type=sign_up");
+      return;
+    }
+  }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

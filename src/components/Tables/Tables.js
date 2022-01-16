@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TableCard from "./TableCard/TableCard";
 import PopUpModal from "../popup/PopupModal";
+import protectRoutes from "../../modules/protectRoutes";
 import "./tables.css";
 
 const Tables = () => {
@@ -14,6 +15,11 @@ const Tables = () => {
   const [popUpData, setPopUpData] = useState(null);
 
   useEffect(() => {
+    const isNotAuthenticated = protectRoutes();
+    if (isNotAuthenticated) {
+      navigate("/authenticate?type=sign_up");
+      return;
+    }
     const fetchData = async () => {
       const response = await fetch(
         `https://time-saver-server.herokuapp.com/api/table/`,
@@ -38,7 +44,7 @@ const Tables = () => {
       }
     };
     fetchData();
-  }, [token]);
+  }, [navigate, token]);
 
   if (!tables) {
     return <div className="loader"></div>;

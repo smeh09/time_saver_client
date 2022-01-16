@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PopUpModal from "../popup/PopupModal";
+import protectRoutes from "../../modules/protectRoutes";
 import "./styles/editProfile.css";
 
 const EditProfile = ({ setToken }) => {
@@ -15,7 +16,14 @@ const EditProfile = ({ setToken }) => {
 
   const token = localStorage.getItem("token");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    const isNotAuthenticated = protectRoutes();
+    if (isNotAuthenticated) {
+      navigate("/authenticate?type=sign_up");
+      return;
+    }
     const fetchData = async () => {
       const response = await fetch(
         `https://time-saver-server.herokuapp.com/api/user/`,
@@ -48,9 +56,7 @@ const EditProfile = ({ setToken }) => {
       }
     };
     fetchData();
-  }, [token]);
-
-  const navigate = useNavigate();
+  }, [navigate, token]);
 
   const save = async () => {
     const response = await fetch(

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import PopUpModal from "./popup/PopupModal";
+import protectRoutes from "../modules/protectRoutes";
 import "./styles/authenticate.css";
 
 export default function Authenticate({ token, setToken }) {
@@ -11,6 +12,11 @@ export default function Authenticate({ token, setToken }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const isNotAuthenticated = protectRoutes();
+    if (!isNotAuthenticated) {
+      navigate("/tables");
+      return;
+    }
     if (type !== "sign_in" && type !== "sign_up") {
       navigate("/");
     }

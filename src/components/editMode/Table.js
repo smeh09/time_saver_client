@@ -5,6 +5,7 @@ import DayRowHeader from "./DayRowHeader";
 import genStartData from "../../modules/startData";
 import PopUpModal from "../popup/PopupModal";
 import InputPopup from "../inputPopup/InputPopup";
+import protectRoutes from "../../modules/protectRoutes";
 import "./styles/table.css";
 
 const days = [
@@ -31,6 +32,11 @@ export default function EditTable() {
   const { id } = useParams();
 
   useEffect(() => {
+    const isNotAuthenticated = protectRoutes();
+    if (isNotAuthenticated) {
+      navigate("/authenticate?type=sign_up");
+      return;
+    }
     const fetchData = async () => {
       const response = await fetch(
         `https://time-saver-server.herokuapp.com/api/table/${id}`,

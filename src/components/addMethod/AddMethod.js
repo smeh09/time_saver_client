@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import protectRoutes from "../../modules/protectRoutes";
 import "./styles/addMethod.css";
 
 const AddMethod = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isNotAuthenticated = protectRoutes();
+    if (isNotAuthenticated) {
+      navigate("/authenticate?type=sign_up");
+      return;
+    }
+  }, [navigate]);
 
   return (
     <div className="add-method-container">

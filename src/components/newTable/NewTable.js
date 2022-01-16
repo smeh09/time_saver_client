@@ -1,8 +1,9 @@
 import "./styles/table.css";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import genStartData from "../../modules/startData";
 import PopUpModal from "../popup/PopupModal";
+import protectRoutes from "../../modules/protectRoutes";
 
 export default function NewTable() {
   const columns = 0;
@@ -11,6 +12,14 @@ export default function NewTable() {
   const navigate = useNavigate();
 
   const [popUpData, setPopUpData] = useState(null);
+
+  useEffect(() => {
+    const isNotAuthenticated = protectRoutes();
+    if (isNotAuthenticated) {
+      navigate("/authenticate?type=sign_up");
+      return;
+    }
+  }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

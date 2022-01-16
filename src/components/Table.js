@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PopUpModal from "./popup/PopupModal";
+import protectRoutes from "../modules/protectRoutes";
 import "./styles/table.css";
 
 const days = [
@@ -49,6 +50,11 @@ export default function Table() {
   const { id } = useParams();
 
   useEffect(() => {
+    const isNotAuthenticated = protectRoutes();
+    if (isNotAuthenticated) {
+      navigate("/authenticate?type=sign_up");
+      return;
+    }
     const fetchData = async () => {
       const response = await fetch(
         `https://time-saver-server.herokuapp.com/api/table/${id}`,
