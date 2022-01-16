@@ -43,11 +43,12 @@ export default function Authenticate({ token, setToken }) {
       }),
     });
     const result = await res.json();
+    setIsLoader(false);
+    console.log(result);
     if (result.success) {
       localStorage.setItem("token", result.token);
       localStorage.setItem("profilePhotoURL", result.profilePhotoURL);
       setToken(result.token);
-      setIsLoader(false);
       return true;
     } else {
       setPopUpData({
