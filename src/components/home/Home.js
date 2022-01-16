@@ -5,6 +5,11 @@ import "./styles/home.css";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  if (localStorage.getItem("token")) {
+    navigate("/tables");
+  }
+
   return (
     <div className="home">
       <div className="text">
