@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 100px 50px;
-  min-height: calc(100vh - 264px);
+  min-height: calc(100vh - 325px);
 }
 
 .home-page-img {
@@ -41,9 +41,10 @@
   transform: translate(0, -3px);
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1450px) {
   .home-page-img {
     width: 350px;
+    min-height: calc(100vh - 353px) !important;
   }
   .text {
     width: 500px;

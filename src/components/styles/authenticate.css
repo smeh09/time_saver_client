@@ -1,5 +1,6 @@
 #authentication-modal-outer {
-  min-height: calc(100vh - 164px);
+  min-height: calc(100vh - 253px);
+  margin: 30px;
 }
 
 #authentication-modal-inner {
@@ -84,4 +85,13 @@ form {
 
 #authenticate-submit-button:hover {
   transform: translate(0, 22px);
+}
+
+@media screen and (max-width: 370px) {
+  #authentication-modal-inner {
+    width: 95%;
+  }
+  .authenticate-form-control-input {
+    width: 85%;
+  }
 }
