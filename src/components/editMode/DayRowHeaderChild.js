@@ -21,7 +21,9 @@ const DayRowHeaderChild = ({ id, tableSampleData, i }) => {
       inputPlaceHolder2: "Please enter default end time (24hr clock)",
       defaultInput1: "00:00",
       defaultInput2: "00:00",
+      isTime: true,
       onConfirm: async (startTime, endTime) => {
+        setPopUpData(null);
         if (!startTime || !endTime) {
           return;
         }
@@ -42,7 +44,6 @@ const DayRowHeaderChild = ({ id, tableSampleData, i }) => {
           });
         });
         await fetchUpdate(id, tableData);
-        setPopUpData(null);
         window.location.reload();
       },
       onCancel: () => {
@@ -56,13 +57,13 @@ const DayRowHeaderChild = ({ id, tableSampleData, i }) => {
       title: "Confirm",
       message: "Are you sure you want to delete this column",
       onConfirm: async () => {
+        setPopUpConfirmData(null);
         await fetchUpdate(id, tableSampleData);
         const tableData = [...tableSampleData];
         tableData.forEach((dayData) => {
           dayData.data.splice(i - 1, 1);
         });
         await fetchUpdate(id, tableData);
-        setPopUpConfirmData(null);
         window.location.reload();
       },
       onCancel: () => {
@@ -83,6 +84,7 @@ const DayRowHeaderChild = ({ id, tableSampleData, i }) => {
           inputPlaceHolder2={popUpData.inputPlaceHolder2}
           defaultInput1={popUpData.defaultInput1}
           defaultInput2={popUpData.defaultInput2}
+          isTime={popUpData.isTime}
           onConfirm={popUpData.onConfirm}
           onCancel={popUpData.onCancel}
         />

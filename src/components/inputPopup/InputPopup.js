@@ -21,27 +21,31 @@ const InputPopup = (props) => {
               onChange={(e) => setInputData(e.target.value)}
               className="modal-input"
               placeholder={props.inputPlaceHolder}
+              type={props.isTime ? "time" : "text"}
             />
           </div>
+          {props.inputLabel2 ? (
+            <div className="modal-input-control">
+              <div className="modal-input-label">{props.inputLabel2}</div>
+              <input
+                value={inputData2}
+                onChange={(e) => setInputData2(e.target.value)}
+                className="modal-input"
+                placeholder={props.inputPlaceHolder2}
+                type={props.isTime ? "time" : "text"}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
-        {props.inputLabel2 ? (
-          <div className="modal-input-control">
-            <div className="modal-input-label">{props.inputLabel2}</div>
-            <input
-              value={inputData2}
-              onChange={(e) => setInputData2(e.target.value)}
-              className="modal-input"
-              placeholder={props.inputPlaceHolder2}
-            />
-          </div>
-        ) : (
-          <></>
-        )}
         <div className="input-modal-button-container">
           <div className="modal-buttons">
             <button
               className="modal-button"
-              onClick={() => props.onConfirm(inputData, inputData2)}
+              onClick={() => {
+                props.onConfirm(inputData, inputData2);
+              }}
             >
               OK
             </button>

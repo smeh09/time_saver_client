@@ -25,6 +25,11 @@
   background: #29bfd3;
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(180deg)
+    brightness(100%) contrast(80%);
+}
+
 body {
   background: #1d1b32;
 }
