@@ -60,6 +60,10 @@ export default function EditTable() {
         setAlertData({
           title: "Error",
           message: tableSampleData.msg,
+          onConfirm: () => {
+            setAlertData(null);
+            navigate("/tables");
+          },
         });
       }
     };
@@ -305,7 +309,7 @@ export default function EditTable() {
           <PopUpModal
             title={alertData.title}
             message={alertData.message}
-            onConfirm={() => setAlertData(null)}
+            onConfirm={alertData.onConfirm}
           />
         ) : (
           <></>

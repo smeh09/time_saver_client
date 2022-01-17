@@ -29,7 +29,10 @@ const JoinLink = () => {
         setPopUpData({
           title: "Error",
           message: result.msg,
-          onConfirm: () => setPopUpData(null),
+          onConfirm: () => {
+            setPopUpData(null);
+            navigate("/tables");
+          },
         });
       }
     };
@@ -48,7 +51,7 @@ const JoinLink = () => {
       );
       const profileData = await response.json();
       if (!profileData.success) {
-        return;
+        navigate("/tables");
       }
       setTablesJoined(profileData.data.tablesJoined);
       if (tablesJoined.includes(id)) {

@@ -76,7 +76,10 @@ export default function Table() {
         setPopUpData({
           title: "Error",
           message: tableSampleData.msg,
-          onConfirm: () => setPopUpData(null),
+          onConfirm: () => {
+            setPopUpData(null);
+            navigate("/tables");
+          },
         });
       }
     };
@@ -84,7 +87,20 @@ export default function Table() {
   }, [navigate, id]);
 
   if (!tableSampleData) {
-    return <div className="loader"></div>;
+    return (
+      <>
+        {popUpData ? (
+          <PopUpModal
+            title={popUpData.title}
+            message={popUpData.message}
+            onConfirm={popUpData.onConfirm}
+          />
+        ) : (
+          <></>
+        )}
+        <div className="loader"></div>
+      </>
+    );
   } else {
     return (
       <>
@@ -131,35 +147,59 @@ export default function Table() {
             {tableSampleData.map((dayData, i) => {
               return (
                 <div className="day-row" key={i}>
-                  <div className="day box">{dayData.day.toUpperCase()}</div>
+                  <div className="index-stuff">
+                    {i === 0 ? (
+                      <div id="first-index" className="index"></div>
+                    ) : (
+                      <></>
+                    )}
+                    <div className="day box">{dayData.day.toUpperCase()}</div>
+                  </div>
                   <div className="table-row">
                     {dayData.data.map((task, j) => {
                       return (
-                        <div
-                          key={j}
-                          className="table-task box"
-                          id={
-                            isTaskNow(
-                              dayData.day,
-                              task.timings[0],
-                              task.timings[1]
-                            )
-                              ? "selected-box"
-                              : ""
-                          }
-                        >
-                          <div className="table-task-time">
-                            {task.timings.map((time, i) =>
-                              i === task.timings.length - 1
-                                ? `${time}`
-                                : `${time} - `
+                        <>
+                          <div className="index-stuff">
+                            {i === 0 ? (
+                              <div
+                                className={
+                                  j === tableSampleData[i].data.length - 1
+                                    ? "last-index index"
+                                    : "index"
+                                }
+                              >
+                                {j + 1}
+                              </div>
+                            ) : (
+                              <></>
                             )}
+                            <div
+                              key={j}
+                              className="table-task box"
+                              id={
+                                isTaskNow(
+                                  dayData.day,
+                                  task.timings[0],
+                                  task.timings[1]
+                                )
+                                  ? "selected-box"
+                                  : ""
+                              }
+                            >
+                              <div className="table-task-time">
+                                {task.timings.map((time, i) =>
+                                  i === task.timings.length - 1
+                                    ? `${time}`
+                                    : `${time} - `
+                                )}
+                              </div>
+                              <div className="table-task-name">{task.task}</div>
+                              <div className="table-task-teacher">
+                                {task.teacher}
+                              </div>
+                            </div>
                           </div>
-                          <div className="table-task-name">{task.task}</div>
-                          <div className="table-task-teacher">
-                            {task.teacher}
-                          </div>
-                        </div>
+                        </>
                       );
                     })}
                   </div>
