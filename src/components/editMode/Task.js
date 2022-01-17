@@ -48,11 +48,12 @@ export default function Task({
   }
 
   return (
-    <div className="table-task box">
+    <div className="table-task edit-box">
       <div className="table-task-time-container">
         <input
           placeholder="hh:mm"
           className="table-task-time-edit"
+          type="time"
           value={time1}
           onChange={(e) => {
             setTime1(e.target.value);
@@ -63,6 +64,7 @@ export default function Task({
         <input
           placeholder="hh:mm"
           className="table-task-time-edit"
+          type="time"
           value={time2}
           onChange={(e) => {
             setTime2(e.target.value);
@@ -74,7 +76,7 @@ export default function Task({
       <input
         type="text"
         placeholder="task"
-        className="table-task-name highlighted"
+        className="table-task-name highlighted table-task-edit-input"
         value={name}
         onChange={(e) => {
           setName(e.target.value);
@@ -86,14 +88,14 @@ export default function Task({
       <input
         type="text"
         placeholder="teacher"
-        className="table-task-teacher"
+        className="table-task-teacher table-task-edit-input"
         value={teacher}
         onChange={(e) => {
           setTeacher(e.target.value);
           update(time1, time2, name, e.target.value);
         }}
         minLength="3"
-        maxLength="15"
+        maxLength="20"
       />
     </div>
   );

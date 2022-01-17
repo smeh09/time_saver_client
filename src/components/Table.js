@@ -158,48 +158,45 @@ export default function Table() {
                   <div className="table-row">
                     {dayData.data.map((task, j) => {
                       return (
-                        <>
-                          <div className="index-stuff">
-                            {i === 0 ? (
-                              <div
-                                className={
-                                  j === tableSampleData[i].data.length - 1
-                                    ? "last-index index"
-                                    : "index"
-                                }
-                              >
-                                {j + 1}
-                              </div>
-                            ) : (
-                              <></>
-                            )}
+                        <div key={j} className="index-stuff">
+                          {i === 0 ? (
                             <div
-                              key={j}
-                              className="table-task box"
-                              id={
-                                isTaskNow(
-                                  dayData.day,
-                                  task.timings[0],
-                                  task.timings[1]
-                                )
-                                  ? "selected-box"
-                                  : ""
+                              className={
+                                j === tableSampleData[i].data.length - 1
+                                  ? "last-index index"
+                                  : "index"
                               }
                             >
-                              <div className="table-task-time">
-                                {task.timings.map((time, i) =>
-                                  i === task.timings.length - 1
-                                    ? `${time}`
-                                    : `${time} - `
-                                )}
-                              </div>
-                              <div className="table-task-name">{task.task}</div>
-                              <div className="table-task-teacher">
-                                {task.teacher}
-                              </div>
+                              {j + 1}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                          <div
+                            className="table-task box"
+                            id={
+                              isTaskNow(
+                                dayData.day,
+                                task.timings[0],
+                                task.timings[1]
+                              )
+                                ? "selected-box"
+                                : ""
+                            }
+                          >
+                            <div className="table-task-time">
+                              {task.timings.map((time, i) =>
+                                i === task.timings.length - 1
+                                  ? `${time}`
+                                  : `${time} - `
+                              )}
+                            </div>
+                            <div className="table-task-name">{task.task}</div>
+                            <div className="table-task-teacher">
+                              {task.teacher}
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     })}
                   </div>

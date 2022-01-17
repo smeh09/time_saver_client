@@ -36,17 +36,24 @@
 
 .day {
   justify-content: center;
-  color: #29d3c0;
+  color: black !important;
+  background: linear-gradient(0deg, #e5e6e9, #d5d6da, #abadb1);
 }
 
 #selected-box {
-  background-color: rgb(241, 241, 241);
+  background: linear-gradient(180deg, #e7e2a3, #ffe65f);
 }
 
 #selected-box > .table-task-time,
 #selected-box > .table-task-name,
 #selected-box > .table-task-teacher {
   color: black;
+}
+
+#selected-box > .table-task-time,
+#selected-box > .table-task-teacher {
+  font-weight: 800;
+  color: #682626;
 }
 
 #selected-box > .table-task-name {
@@ -57,6 +64,13 @@
 .table-task-teacher,
 .table-task-time {
   font-size: 13px;
+}
+
+.table-task-name,
+.table-task-teacher {
+  inline-size: 115px;
+  overflow-wrap: break-word;
+  text-align: center;
 }
 
 .time {

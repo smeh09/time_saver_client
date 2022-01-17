@@ -147,12 +147,18 @@ export default function EditTable() {
           setAlertData({
             title: "Success",
             message: "Successfully saved changes! ",
+            onConfirm: () => {
+              setAlertData(null);
+            },
           });
           setTableSampleData(result.result.data);
         } else {
           setAlertData({
             title: "Error",
             message: result.msg,
+            onConfirm: () => {
+              setAlertData(null);
+            },
           });
         }
       };

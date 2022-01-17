@@ -1,3 +1,3 @@
 export default function Day({ dayData }) {
-  return <div className="day box">{dayData.day.toUpperCase()}</div>;
+  return <div className="day edit-box">{dayData.day.toUpperCase()}</div>;
 }
