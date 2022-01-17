@@ -22,6 +22,12 @@ export default function Header({ title, token, setToken }) {
       const profileData = await response.json();
       if (profileData.success) {
         setName(profileData.data.name);
+      } else {
+        if (token) {
+          localStorage.setItem("token", null);
+          setToken(false);
+          navigate("/tables");
+        }
       }
     };
     fetchData();
