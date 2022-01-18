@@ -120,8 +120,9 @@ const Member = ({
         }
       );
       const result = await response.json();
+      console.log(result);
       if (result.success) {
-        navigate(`/table/members/${tableId}`);
+        setIsAdmin(false);
       } else {
         setPopUpData({
           title: "Error",
