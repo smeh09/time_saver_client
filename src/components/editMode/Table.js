@@ -380,26 +380,36 @@ export default function EditTable() {
               return (
                 <div key={i}>
                   {i === 0 ? (
-                    <div className="buttons-setting-header">
-                      <DayRowHeader
+                    <>
+                      <div className="buttons-setting-header">
+                        <DayRowHeader
+                          setTableSampleData={setTableSampleData}
+                          id={id}
+                          tableSampleData={tableSampleData}
+                          length={dayData.data.length}
+                        />
+                      </div>
+                      <DayRow
                         setTableSampleData={setTableSampleData}
-                        id={id}
                         tableSampleData={tableSampleData}
-                        length={dayData.data.length}
+                        i={i}
+                        dayData={dayData}
+                        callSetData={callSetData}
+                        setData={setData}
+                        setCallSetData={setCallSetData}
                       />
-                    </div>
+                    </>
                   ) : (
-                    <></>
+                    <DayRow
+                      setTableSampleData={setTableSampleData}
+                      tableSampleData={tableSampleData}
+                      i={i}
+                      dayData={dayData}
+                      callSetData={callSetData}
+                      setData={setData}
+                      setCallSetData={setCallSetData}
+                    />
                   )}
-                  <DayRow
-                    setTableSampleData={setTableSampleData}
-                    tableSampleData={tableSampleData}
-                    i={i}
-                    dayData={dayData}
-                    callSetData={callSetData}
-                    setData={setData}
-                    setCallSetData={setCallSetData}
-                  />
                 </div>
               );
             })}

@@ -40,6 +40,9 @@ const AddMember = () => {
     <div className="add-member-container-container">
       <div className="add-member-container">
         <h2 className="add-member-heading">Add a member</h2>
+        <p className="add-member-descr">
+          Please send this code/link to add a member
+        </p>
         <div className="controls">
           <div className="add-member-control">
             <div className="add-member-control-heading">Code</div>

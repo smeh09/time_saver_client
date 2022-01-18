@@ -13,32 +13,43 @@ const Members = () => {
   const [name, setName] = useState("");
 
   const [popUpData, setPopUpData] = useState(null);
+  const [popUpData2, setPopUpData2] = useState(null);
 
   const leave = () => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://time-saver-server.herokuapp.com/api/table/leave/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-            "x-auth-token": localStorage.getItem("token"),
-          },
-        }
-      );
-      const result = await response.json();
-      if (result.success) {
-        navigate("/tables");
-      } else {
-        setPopUpData({
-          title: "Error",
-          message: result.msg,
-          onConfirm: () => setPopUpData(null),
-        });
-      }
-    };
-    fetchData();
+    setPopUpData2({
+      title: "Confirm",
+      message: "Are you sure you want to leave this table?",
+      onConfirm: () => {
+        setPopUpData(null);
+        const fetchData = async () => {
+          const response = await fetch(
+            `https://time-saver-server.herokuapp.com/api/table/leave/${id}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+                "x-auth-token": localStorage.getItem("token"),
+              },
+            }
+          );
+          const result = await response.json();
+          if (result.success) {
+            navigate("/tables");
+          } else {
+            setPopUpData({
+              title: "Error",
+              message: result.msg,
+              onConfirm: () => setPopUpData(null),
+            });
+          }
+        };
+        fetchData();
+      },
+      onCancel: () => {
+        setPopUpData2(null);
+      },
+    });
   };
 
   useEffect(() => {
@@ -125,6 +136,16 @@ const Members = () => {
           title={popUpData.title}
           message={popUpData.message}
           onConfirm={popUpData.onConfirm}
+        />
+      ) : (
+        <></>
+      )}
+      {popUpData2 ? (
+        <PopUpModal
+          title={popUpData2.title}
+          message={popUpData2.message}
+          onConfirm={popUpData2.onConfirm}
+          onCancel={popUpData2.onCancel}
         />
       ) : (
         <></>

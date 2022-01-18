@@ -112,7 +112,7 @@ const DayRowHeaderChild = ({ id, tableSampleData, i }) => {
       ) : (
         <></>
       )}
-      <div className="day-row-edit-buttons">
+      <div className="day edit-box edit-day edit-day-row-header-child-btns">
         <button
           className="day-row-edit-header-button"
           onClick={addColumn}
