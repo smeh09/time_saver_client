@@ -15,7 +15,7 @@ const Home = () => {
           You can create time tables here, and it shows the exact period that is
           currently happening based on day and time! You will also be able to
           share the tables, with people, which is extremely helpful in
-          organisations such as schools!
+          organizations such as schools!
         </div>
         <button onClick={() => navigate("/tables")} className="home-button">
           Get Started now!{" "}
