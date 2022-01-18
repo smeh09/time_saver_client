@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  max-width: 100%;
 }
 
 .day-row {
@@ -37,7 +38,7 @@
 .day {
   justify-content: center;
   color: black !important;
-  background: linear-gradient(0deg, #e5e6e9, #d5d6da, #abadb1);
+  background: linear-gradient(180deg, #e5e6e9, #d5d6da, #abadb1);
 }
 
 #selected-box {

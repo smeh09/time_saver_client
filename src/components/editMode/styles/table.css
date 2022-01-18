@@ -148,6 +148,11 @@
   transform: translate(0, 20px);
 }
 
+.edit-day {
+  min-width: 130px;
+  overflow: hidden;
+}
+
 .update-btn-edit,
 .update-btn {
   display: flex;

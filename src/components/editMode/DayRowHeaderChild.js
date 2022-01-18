@@ -8,48 +8,59 @@ const DayRowHeaderChild = ({ id, tableSampleData, i }) => {
   const [popUpConfirmData, setPopUpConfirmData] = useState(null);
 
   const addColumn = async () => {
-    await fetchUpdate(id, tableSampleData);
-
-    const tableData = [...tableSampleData];
-
-    setPopUpData({
-      title: "Add a column",
-      message: "Please enter default time for the column",
-      inputLabel: "Default start time",
-      inputPlaceHolder: "Please enter default start time (24hr clock)",
-      inputLabel2: "Default end time",
-      inputPlaceHolder2: "Please enter default end time (24hr clock)",
-      defaultInput1: "00:00",
-      defaultInput2: "00:00",
-      isTime: true,
-      onConfirm: async (startTime, endTime) => {
-        setPopUpData(null);
-        if (!startTime || !endTime) {
+    if (tableSampleData[0].data.length === 10) {
+      setPopUpConfirmData({
+        title: "Error",
+        message: "You can only make 10 columns per table!",
+        onConfirm: function () {
+          setPopUpConfirmData(null);
           return;
-        }
+        },
+      });
+    } else {
+      await fetchUpdate(id, tableSampleData);
 
-        if (startTime === "") {
-          startTime = "00:00";
-        }
+      const tableData = [...tableSampleData];
 
-        if (endTime === "") {
-          endTime = "00:00";
-        }
+      setPopUpData({
+        title: "Add a column",
+        message: "Please enter default time for the column",
+        inputLabel: "Default start time",
+        inputPlaceHolder: "Please enter default start time (24hr clock)",
+        inputLabel2: "Default end time",
+        inputPlaceHolder2: "Please enter default end time (24hr clock)",
+        defaultInput1: "00:00",
+        defaultInput2: "00:00",
+        isTime: true,
+        onConfirm: async (startTime, endTime) => {
+          setPopUpData(null);
+          if (!startTime || !endTime) {
+            return;
+          }
 
-        tableData.forEach((dayData) => {
-          dayData.data.splice(i, 0, {
-            task: "",
-            teacher: "",
-            timings: [startTime, endTime],
+          if (startTime === "") {
+            startTime = "00:00";
+          }
+
+          if (endTime === "") {
+            endTime = "00:00";
+          }
+
+          tableData.forEach((dayData) => {
+            dayData.data.splice(i, 0, {
+              task: "",
+              teacher: "",
+              timings: [startTime, endTime],
+            });
           });
-        });
-        await fetchUpdate(id, tableData);
-        window.location.reload();
-      },
-      onCancel: () => {
-        setPopUpData(null);
-      },
-    });
+          await fetchUpdate(id, tableData);
+          window.location.reload();
+        },
+        onCancel: () => {
+          setPopUpData(null);
+        },
+      });
+    }
   };
 
   const removeColumn = async () => {

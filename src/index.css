@@ -32,6 +32,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 body {
   background: #1d1b32;
+  width: 100%;
 }
 
 a {
