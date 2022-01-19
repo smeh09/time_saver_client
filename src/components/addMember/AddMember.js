@@ -49,12 +49,25 @@ const AddMember = () => {
             <div className="add-member-control-code">{id}</div>
           </div>
           <div className="add-member-control">
-            <div className="add-member-control-heading">Link</div>
+            <div className="add-member-control-heading">
+              Link (for registered users)
+            </div>
             <a
               href={`https://time-table-manager-app.vercel.app/table/join/link/${id}`}
               className="add-member-control-link"
             >
               {`https://time-table-manager-app.vercel.app/table/join/link/${id}`}
+            </a>
+          </div>
+          <div className="add-member-control">
+            <div className="add-member-control-heading">
+              Link (for non registered users)
+            </div>
+            <a
+              href={`https://time-table-manager-app.vercel.app/viewTable/${id}`}
+              className="add-member-control-link"
+            >
+              {`https://time-table-manager-app.vercel.app/viewTable/${id}`}
             </a>
           </div>
         </div>
