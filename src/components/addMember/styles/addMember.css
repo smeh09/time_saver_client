@@ -46,3 +46,13 @@
 .add-member-control-link {
   color: rgb(116, 153, 255);
 }
+
+.add-member-last-link-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-member-descr {
+  text-align: center;
+  width: 100%;
+}
