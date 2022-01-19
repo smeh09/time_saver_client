@@ -14,6 +14,7 @@ import JoinLink from "./components/joinLink/JoinLink";
 import EditProfile from "./components/editProfile/EditProfile";
 import Home from "./components/home/Home";
 import Footer from "./components/Footer/Footer";
+import ViewTable from "./components/viewMode/Table";
 import { useState } from "react";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             element={<Authenticate token={token} setToken={setToken} />}
           />
           <Route path="/table/:id" element={<Table />} />
+          <Route path="/viewTable/:id" element={<ViewTable />} />
           <Route path="/table/edit/:id" element={<EditTable />} />
           <Route path="/table/new" element={<NewTable />} />
           <Route path="/table/join" element={<JoinTable />} />
