@@ -12,7 +12,9 @@ const days = [
   "Friday",
   "Saturday",
 ];
+
 const date = new Date();
+const renderedDate = date.toDateString();
 const day = days[date.getDay()];
 const hour = date.getHours();
 const mins = date.getMinutes();
@@ -106,6 +108,7 @@ export default function Table() {
           <></>
         )}
         <div className="table-outer">
+          <h2 className="table-date">{renderedDate}</h2>
           <h2 className="table-heading-name">{name}</h2>
           <div className="buttons">
             <button
