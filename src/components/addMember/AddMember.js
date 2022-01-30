@@ -57,22 +57,6 @@ const AddMember = () => {
               {`https://time-table-manager-app.vercel.app/table/join/link/${id}`}
             </a>
           </div>
-          <div className="add-member-control">
-            <div className="add-member-last-link-container">
-              <p className="add-member-descr">
-                Share this link for public access
-              </p>
-              <div className="add-member-control-heading">
-                Link (for non registered users)
-              </div>
-            </div>
-            <a
-              href={`https://time-table-manager-app.vercel.app/viewTable/${id}`}
-              className="add-member-control-link"
-            >
-              {`https://time-table-manager-app.vercel.app/viewTable/${id}`}
-            </a>
-          </div>
         </div>
       </div>
     </div>
