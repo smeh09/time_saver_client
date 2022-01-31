@@ -34,7 +34,7 @@ const isTaskNow = (d, time1, time2) => {
     return false;
   if (
     hour > parseInt(formattedTime2[0]) ||
-    (hour === parseInt(formattedTime2[0]) && mins > parseInt(formattedTime2[1]))
+    (hour === parseInt(formattedTime2[0]) || mins > parseInt(formattedTime2[1]))
   )
     return false;
   return true;
