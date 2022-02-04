@@ -26,18 +26,23 @@ function formatTime(time) {
 }
 
 const isTaskNow = (d, time1, time2) => {
+  if (d.toLowerCase() !== day.toLowerCase()) {
+    return false;
+  }
+
+  let time_mins = (hour*60)+mins
+
   const formattedTime1 = formatTime(time1);
   const formattedTime2 = formatTime(time2);
+  
+  let time1_mins = parseInt(formattedTime1[0])*60+parseInt(formattedTime1[1])
+  let time2_mins = parseInt(formattedTime2[0])*60+parseInt(formattedTime2[1])
 
-  if (d.toLowerCase() !== day.toLowerCase()) return false;
-  if (hour < parseInt(formattedTime1[0]) || mins < parseInt(formattedTime1[1]))
-    return false;
-  if (
-    hour > parseInt(formattedTime2[0]) ||
-    (hour === parseInt(formattedTime2[0]) && mins > parseInt(formattedTime2[1]))
-  )
-    return false;
-  return true;
+  if (time_mins >= time1_mins && time_mins < time2_mins) {
+  	return true
+  } else {
+  	return false
+  }
 };
 
 export default function Table() {
